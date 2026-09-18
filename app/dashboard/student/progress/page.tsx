@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { motion, Variants } from "framer-motion";
 import { BookOpen, GraduationCap, Clock, CheckCircle2, ChevronDown } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
-import { ContextType, SidebarContext } from "@/context/context";
+import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 
 // Animation Variants
 const containerVariants:Variants = {
@@ -34,7 +34,7 @@ const progressTopics = [
 ];
 
 export default function ProgressPage() {
-    const { collapsed } = useContext<ContextType>(SidebarContext);
+    const { collapsed } = useSidebar()
   return (
    <div className="min-h-screen overflow-x-hidden bg-[#111111] text-white">
       <div className="flex min-h-screen">

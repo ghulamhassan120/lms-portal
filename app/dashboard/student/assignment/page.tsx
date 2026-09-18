@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { motion, Variants } from "framer-motion";
 import { FileText, CheckSquare, Clock, Eye, Upload, Edit3 } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
-import { ContextType, SidebarContext } from "@/context/context";
+import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 
 // Animation Variants
 const containerVariants:Variants = {
@@ -75,7 +75,7 @@ const assignmentRecords = [
 ];
 
 export default function AssignmentPage() {
-  const { collapsed } = useContext<ContextType>(SidebarContext);
+  const { collapsed } = useSidebar()
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#111111] text-white">

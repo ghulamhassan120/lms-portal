@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { motion, AnimatePresence, Variant, Variants } from "framer-motion";
 import { Calendar, CheckCircle2, XCircle, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
-import { ContextType, SidebarContext } from "@/context/context";
+import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 
 // Animation Variants
 const containerVariants :Variants= {
@@ -40,7 +40,7 @@ const attendanceRecords = [
 ];
 
 export default function AttendancePage() {
-  const { collapsed } = useContext<ContextType>(SidebarContext);
+  const { collapsed } = useSidebar()
   const [selectedMonth, setSelectedMonth] = useState("Sep 2026");
   const [isOpen, setIsOpen] = useState(false);
 

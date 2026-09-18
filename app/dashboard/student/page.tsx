@@ -19,7 +19,7 @@ import {
 import { useRouter } from "next/navigation";
 import { menuItems } from "@/config/menu";
 import { classDays, schedule } from "@/config/assest";
-import { ContextType, SidebarContext } from "@/context/context";
+import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 import Sidebar from "@/components/SideBar/Sidebar";
 
 
@@ -45,7 +45,7 @@ const staggerContainer:Variants = {
 };
 
 function Dashboard() {
- const {setActiveMenu,setMobileMenu,collapsed,mobileMenu,activeMenu,setCollapsed}=useContext<ContextType>(SidebarContext)
+ const {setActiveMenu,setMobileMenu,collapsed,mobileMenu,activeMenu,setCollapsed}=useSidebar()
   const [activeTab, setActiveTab] = useState("Quizzes");
 
  
