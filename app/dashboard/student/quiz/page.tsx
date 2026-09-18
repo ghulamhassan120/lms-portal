@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import { AlertTriangle } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
-import { ContextType, SidebarContext } from "@/context/context";
+import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 
 // Animation Variants
 const containerVariants = {
@@ -70,7 +70,7 @@ const quizRecords = [
 ];
 
 export default function QuizPage() {
-  const { collapsed } = useContext<ContextType>(SidebarContext);
+  const { collapsed } = useSidebar()
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#111111] text-white">

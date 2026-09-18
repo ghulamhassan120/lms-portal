@@ -701,7 +701,7 @@ function Dashboard() {
 /* INFO ITEM */
 /* ================================================= */
 
-function InfoItem({ icon: Icon, label, value }) {
+function InfoItem({ icon: Icon, label, value }:{ icon: any; label: string; value: string }) {
   return (
     <div
       className="
