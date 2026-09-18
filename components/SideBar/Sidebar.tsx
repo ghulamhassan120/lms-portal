@@ -17,7 +17,7 @@ const Sidebar = () => {
   } = useSidebar()
   const router = useRouter();
   const pathname = usePathname();
-  const handleMenuClick = (label) => {
+  const handleMenuClick = (label:any) => {
     setActiveMenu(label);
     setMobileMenu(false);
   };
