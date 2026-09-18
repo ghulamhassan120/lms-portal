@@ -24,7 +24,7 @@ import Sidebar from "@/components/SideBar/Sidebar";
 
 
 
-const fadeUp = {
+const fadeUp: = {
   hidden: {
     opacity: 0,
     y: 20,
@@ -178,7 +178,6 @@ function Dashboard() {
                 text-white
                 transition
                 hover:bg-[#303030]
-
                 sm:px-4
               "
             >
