@@ -1,12 +1,12 @@
 'use client';
 import React, { useContext, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Copy, Check, ExternalLink } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
-import { ContextType, SidebarContext } from "@/context/context";
+import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 
 // Animation Variants for Out-class Smooth Effect
-const containerVariants = {
+const containerVariants:Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -17,12 +17,12 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants :Variants= {
   hidden: { opacity: 0, y: 20 },
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.4, ease: "easeOut" }
+    transition: { duration: 0.4, ease: "easeOut" as const }
   },
 };
 
@@ -31,7 +31,7 @@ const feeRecords = [
   { month: "Nov 2025", amount: "Rs: 1000 /-+", type: "Monthly", dueDate: "08-Nov-2025", voucherId: "202511525239", status: "PENDING" },
 ];
 export default function PaymentPage() {
-  const { collapsed } = useContext<ContextType>(SidebarContext);
+  const { collapsed } = useSidebar()
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const handleCopy = (id: string) => {

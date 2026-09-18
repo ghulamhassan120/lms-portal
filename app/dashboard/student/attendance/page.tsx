@@ -1,12 +1,12 @@
 'use client';
 import React, { useContext, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variant, Variants } from "framer-motion";
 import { Calendar, CheckCircle2, XCircle, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
 import { ContextType, SidebarContext } from "@/context/context";
 
 // Animation Variants
-const containerVariants = {
+const containerVariants :Variants= {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -17,12 +17,12 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants:Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.4, ease: "easeOut" }
+    transition: { duration: 0.4, ease: "easeOut"as const }
   },
 };
 
