@@ -24,7 +24,7 @@ import Sidebar from "@/components/SideBar/Sidebar";
 
 
 
-const fadeUp: = {
+const fadeUp = {
   hidden: {
     opacity: 0,
     y: 20,
@@ -512,7 +512,7 @@ function Dashboard() {
                       transition={{
                         duration: 1.2,
                         delay: 0.5,
-                        ease: "easeOut",
+                        ease: "easeOut" as const,
                       }}
                       className="h-full bg-[#00c978]"
                     />
