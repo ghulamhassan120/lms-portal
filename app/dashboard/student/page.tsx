@@ -35,7 +35,7 @@ const fadeUp = {
   },
 };
 
-const staggerContainer = {
+const staggerContainer:Variants = {
   hidden: {},
   visible: {
     transition: {
