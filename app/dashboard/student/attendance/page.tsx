@@ -63,8 +63,8 @@ export default function AttendancePage() {
             p-4
             sm:p-6
             ml-0
-            lg:ml-[196px]
-            ${collapsed ? "lg:ml-[78px]" : ""}
+            
+            ${collapsed ? "lg:ml-[78px]" : "lg:ml-[196px]"}
           `}
         >
           {/* ================= TOP STATS CARDS ================= */}

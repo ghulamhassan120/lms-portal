@@ -14,7 +14,7 @@ const Sidebar = () => {
     mobileMenu,
     activeMenu,
     setCollapsed,
-  } = useContext<ContextType>(SidebarContext);
+  } = useContext(SidebarContext);
   const router = useRouter();
   const pathname = usePathname();
   const handleMenuClick = (label) => {

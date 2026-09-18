@@ -96,7 +96,6 @@ export default function AssignmentPage() {
             p-4
             sm:p-6
             ml-0
-            
             ${collapsed ? "lg:ml-[78px]" : "lg:ml-[196px]"}
           `}
         >
