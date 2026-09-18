@@ -1,6 +1,6 @@
 "use client";
 import { menuItems } from "@/config/menu";
-import { ContextType, SidebarContext } from "@/context/context";
+import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, UserRound, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ const Sidebar = () => {
     mobileMenu,
     activeMenu,
     setCollapsed,
-  } = useContext(SidebarContext);
+  } = useSidebar()
   const router = useRouter();
   const pathname = usePathname();
   const handleMenuClick = (label) => {

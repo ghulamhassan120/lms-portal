@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 export type ContextType = {
   activeMenu: string;
   setActiveMenu: React.Dispatch<React.SetStateAction<string>>;
@@ -30,4 +30,12 @@ export const SidebarProvider = ({ children }:any) => {
       {children}
     </SidebarContext.Provider>
   );
+};
+
+export const useSidebar = () => {
+  const context = useContext(SidebarContext);
+  if (!context) {
+    throw new Error("useSidebar must be used within a SidebarProvider");
+  }
+  return context;
 };
