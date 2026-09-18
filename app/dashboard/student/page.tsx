@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence,Variants } from "framer-motion";
 import {
   MessageSquare,
   ChevronLeft,
