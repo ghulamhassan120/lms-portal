@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Signika } from "next/font/google";
 import "./globals.css";
+import { SidebarProvider } from "@/context/context";
 
 const signika = Signika({
   variable: "--font-signika",
@@ -19,7 +20,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${signika.variable}  h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <SidebarProvider>
+        {children}
+
+        </SidebarProvider>
+        </body>
     </html>
   );
 }
