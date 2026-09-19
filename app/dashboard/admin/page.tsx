@@ -15,7 +15,7 @@ import {
   Plus 
 } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
-import { ContextType, SidebarContext } from "@/context/context";
+import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 import AdminSidebar from "@/components/SideBar/AdminSidebar";
 
 // Animation Variants
@@ -42,7 +42,7 @@ const pendingVouchers = [
 ];
 
 export default function AdminDashboard() {
-  const { collapsed, setMobileMenu, mobileMenu } = useContext<ContextType>(SidebarContext);
+  const { collapsed, setMobileMenu, mobileMenu } = useSidebar()
   const [activeTab, setActiveTab] = useState("Vouchers");
 
   return (
