@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 export type ContextType = {
   activeMenu: string;
   setActiveMenu: React.Dispatch<React.SetStateAction<string>>;
@@ -13,6 +13,8 @@ export type ContextType = {
   setSelectedAssignment: (assignment: any) => void; 
   isEditModalOpen: any;
   setIsEditModalOpen: (assignment: any) => void; 
+  theme: string;
+setTheme: (theme: string) => void;
 };
 export const SidebarContext = createContext<ContextType | undefined>(
   undefined
@@ -24,7 +26,17 @@ export const SidebarProvider = ({ children }:any) => {
      const [isModalOpen, setIsModalOpen] = useState<Boolean>(false);
      const [selectedAssignment, setSelectedAssignment] = useState<any>();
      const [isEditModalOpen, setIsEditModalOpen] = useState<any>();
-
+     const [theme, setTheme] = useState("dark");
+useEffect(() => {
+  const root = document.documentElement;
+  if (theme === "light") {
+    root.classList.add("light");
+    root.classList.remove("dark");
+  } else {
+    root.classList.add("dark");
+    root.classList.remove("light");
+  }
+}, [theme]);
   return (
     <SidebarContext.Provider
       value={{
@@ -39,7 +51,8 @@ export const SidebarProvider = ({ children }:any) => {
         selectedAssignment,
         setSelectedAssignment,
         setIsEditModalOpen,
-        isEditModalOpen
+        isEditModalOpen,
+        theme,setTheme
 
       }}
     >

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
+/* :root { */
+  /* --background: #ffffff;
   --foreground: #171717;
 }
 
@@ -21,4 +21,82 @@
 body {
   background: var(--background);
   color: var(--foreground);
+} */
+
+
+
+
+
+/* ---------------- DARK MODE (Default) ---------------- */
+html.dark body {
+  background-color: #111111 !important;
+  color: #ffffff !important;
+}
+
+html.dark .bg-\[\#1a1a1a\] {
+  background-color: #1a1a1a !important;
+}
+
+html.dark .bg-\[\#222222\] {
+  background-color: #222222 !important;
+}
+
+html.dark .border-\[\#343434\] {
+  border-color: #343434 !important;
+}
+
+
+/* ---------------- LIGHT MODE COMPLETE OVERRIDE ---------------- */
+html:not(.dark) body {
+  background-color: #f8f9fa !important;
+  color: #000102 !important;
+}
+
+/* Sabhi tarah ke dark backgrounds ko light white karna */
+html:not(.dark) div, 
+html:not(.dark) button, 
+html:not(.dark) aside, 
+html:not(.dark) header, 
+html:not(.dark) section {
+  background-color: inherit;
+  color: #000102
+}
+html:not(.dark) button:hover{
+  background-color: #acdbeb;
+} 
+
+/* Specific class overrides jo dark background enforce kar rahi hain */
+html:not(.dark) .bg-\[\#1a1a1a\],
+html:not(.dark) .bg-\[\#222222\],
+html:not(.dark) .bg-\[\#111111\],
+html:not(.dark) .bg-\[\#1a202c\],
+html:not(.dark) div[class*="bg-[#"] {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  /* border-color: #e5e7eb !important; */
+}
+
+/* Main course card ke andar wale dark tags ya badges */
+html:not(.dark) span, 
+html:not(.dark) p, 
+html:not(.dark) h1, 
+html:not(.dark) h2, 
+html:not(.dark) h3 {
+  color: #000000 !important;
+  /* background-color: #ffffff; */
+}
+
+/* Lekin agar koi specific text white hona chahiye ya badges hain toh unka color handle karna */
+html:not(.dark) .text-white {
+  color: #111827 !important;
+}
+
+html:not(.dark) .text-gray-400,
+html:not(.dark) .text-gray-300 {
+  color: #000000 !important;
+}
+
+/* Borders light gray */
+html:not(.dark) [class*="border-[#"] {
+  border-color:   #e5e7eb !important;
 }

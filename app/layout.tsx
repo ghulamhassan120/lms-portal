@@ -18,9 +18,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${signika.variable}  h-full antialiased`}
+      className={`${signika.variable}  h-full antialiased dark:bg-[#111111] light:bg-[#ffffff]`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col dark:bg-[#111111] dark:text-white">
         <SidebarProvider>
         {children}
 

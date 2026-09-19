@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useState } from "react";
-import { motion, AnimatePresence,Variants } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import {
   MessageSquare,
   ChevronLeft,
@@ -23,8 +23,6 @@ import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 import Sidebar from "@/components/SideBar/Sidebar";
 import Header from "@/components/Header/Header";
 
-
-
 const fadeUp = {
   hidden: {
     opacity: 0,
@@ -36,7 +34,7 @@ const fadeUp = {
   },
 };
 
-const staggerContainer:Variants = {
+const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -46,11 +44,18 @@ const staggerContainer:Variants = {
 };
 
 function Dashboard() {
- const {setActiveMenu,setMobileMenu,collapsed,mobileMenu,activeMenu,setCollapsed}=useSidebar()
+  const {
+    setActiveMenu,
+    setMobileMenu,
+    collapsed,
+    mobileMenu,
+    activeMenu,
+    setCollapsed,
+    theme,
+  } = useSidebar();
   const [activeTab, setActiveTab] = useState("Quizzes");
-  const router=useRouter()
-
- 
+  const router = useRouter();
+  const isLight = theme === "light";
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#111111] text-white">
@@ -65,18 +70,16 @@ function Dashboard() {
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenu(false)}
               className="fixed inset-0 z-40 bg-black/10x backdrop-blur-[2px] lg:hidden"
-              
             />
-
           )}
         </AnimatePresence>
 
         {/* SIDEBAR */}
-          <Sidebar/>
+        <Sidebar />
         {/* MAIN */}
 
         <main
-        className={`
+          className={`
             min-w-0
             flex-1
             transition-all
@@ -88,7 +91,7 @@ function Dashboard() {
         >
           {/* HEADER */}
 
-         <Header/>
+          <Header />
 
           {/* ================================================= */}
           {/* CONTENT */}
@@ -124,7 +127,7 @@ function Dashboard() {
               {/* Attendance */}
               <motion.div
                 variants={fadeUp}
-                onClick={()=>router.push('/dashboard/student/attendance')}
+                onClick={() => router.push("/dashboard/student/attendance")}
                 className="
                   flex
                   min-h-[107px]
@@ -168,7 +171,7 @@ function Dashboard() {
               {/* Assignment */}
               <motion.div
                 variants={fadeUp}
-                onClick={()=>router.push('/dashboard/student/assignment')}
+                onClick={() => router.push("/dashboard/student/assignment")}
                 className="
                   flex
                   min-h-[107px]
@@ -247,11 +250,14 @@ function Dashboard() {
 
                         sm:text-[11px]
 
-                        ${
-                          item.active
-                            ? "border-[#00c978] bg-[#00c978] text-white"
-                            : "border-[#383838] bg-[#202020] text-gray-300"
-                        }
+                     ${
+                       item.active
+                         ? "border-[#00c978] bg-[#00c978] text-white shadow-sm" 
+                         : isLight
+                           ? "border-gray-200 bg-white text-gray-800" 
+                           : "border-[#383838] bg-[#202020] text-gray-300" 
+                     }
+                          
                       `}
                     >
                       <span className="font-medium">{item.day}</span>
@@ -339,7 +345,7 @@ function Dashboard() {
                     </h1>
 
                     <span
-                      className="
+                      className={`
                         w-fit
                         shrink-0
                         rounded-md
@@ -350,7 +356,8 @@ function Dashboard() {
                         text-[11px]
                         font-medium
                         text-[#00a9f4]
-                      "
+                        ${isLight&&"bg-[#ADD8E6] "}
+                      `}
                     >
                       ENROLLED
                     </span>
@@ -366,9 +373,9 @@ function Dashboard() {
                     "
                   >
                     {classDays.map((day) => (
-                      <span
+                      <div
                         key={day}
-                        className="
+                        className={`
                           rounded-md
                           border
                           border-[#454545]
@@ -377,13 +384,24 @@ function Dashboard() {
                           py-1
                           text-[11px]
                           text-gray-200
-
+                          
                           sm:px-3
                           sm:text-xs
-                        "
+                          ${isLight&&`rounded-md
+                          border
+                          border-[#454545]
+                          bg-[#ffffff]
+                          px-2.5
+                          py-1
+                          text-[11px]
+                          text-gray-950
+
+                          sm:px-3
+                          sm:text-xs`}
+                          `}
                       >
                         {day}
-                      </span>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -406,6 +424,7 @@ function Dashboard() {
                   </div>
 
                   {/* Progress */}
+                  
                   <div className="h-[8px] overflow-hidden rounded-full bg-[#353535]">
                     <motion.div
                       initial={{
@@ -419,7 +438,7 @@ function Dashboard() {
                         delay: 0.5,
                         ease: "easeOut" as const,
                       }}
-                      className="h-full bg-[#00c978]"
+                      className={`h-full ${isLight?"bg-[#00c978]":"bg-[#00c978]"}`}
                     />
                   </div>
 
@@ -606,7 +625,15 @@ function Dashboard() {
 /* INFO ITEM */
 /* ================================================= */
 
-function InfoItem({ icon: Icon, label, value }:{ icon: any; label: string; value: string }) {
+function InfoItem({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: any;
+  label: string;
+  value: string;
+}) {
   return (
     <div
       className="

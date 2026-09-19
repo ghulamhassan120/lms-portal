@@ -6,6 +6,7 @@ import {
   ChevronLeft,
   ChevronRight,
   LogOut,
+  Moon,
   Sun,
   User,
   UserRound,
@@ -22,6 +23,8 @@ const Sidebar = () => {
     mobileMenu,
     activeMenu,
     setCollapsed,
+    theme,
+    setTheme,
   } = useSidebar();
   const router = useRouter();
   const pathname = usePathname();
@@ -32,7 +35,9 @@ const Sidebar = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -45,18 +50,29 @@ const Sidebar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleLogout = () => {
+    // Agar aapne localStorage ya cookies mein user data/token rakha hai toh use clear kar dein:
+    // localStorage.removeItem("userToken");
+    // sessionStorage.clear();
+
+    // Login page par redirect karna
+    router.push("/login");
+  };
   return (
-    <motion.aside
-      initial={{ x: -80, opacity: 0 }}
-      animate={{
-        x: 0,
-        opacity: 1,
-      }}
-      transition={{
-        duration: 0.5,
-        ease: "easeOut",
-      }}
-      className={`
+    <>
+      {" "}
+      <motion.aside
+        initial={{ x: -80, opacity: 0 }}
+        animate={{
+          x: 0,
+          opacity: 1,
+        }}
+        transition={{
+          duration: 0.5,
+          ease: "easeOut",
+        }}
+        className={`
             fixed left-0 top-0 z-50 h-screen
             border-r border-[#303030]
             bg-[#222222]
@@ -70,28 +86,55 @@ const Sidebar = () => {
             ${mobileMenu ? "translate-x-0" : "-translate-x-full"}
             lg:translate-x-0
           `}
-    >
-      {/* ================================================= */}
-      {/* LOGO */}
-      {/* ================================================= */}
+      >
+        {/* ================================================= */}
+        {/* LOGO */}
+        {/* ================================================= */}
 
-      <div className="relative flex h-[88px] items-center justify-center border-b border-[#303030]">
-        {!collapsed ? (
-          <div className="text-center">
-            <div className="text-[27px] font-extrabold tracking-tight text-[#168bd3]">
-              SMIT
-            </div>
+        <div className="relative flex h-[88px] items-center justify-center border-b border-[#303030]">
+          {!collapsed ? (
+            <div className="text-center">
+              <div className="text-[27px] font-extrabold tracking-tight text-[#168bd3]">
+                SMIT
+              </div>
 
-            <div className="text-[7px] tracking-wide text-gray-400">
-              SAYLANI MASS IT TRAINING
+              <div className="text-[7px] tracking-wide text-gray-400">
+                SAYLANI MASS IT TRAINING
+              </div>
             </div>
-          </div>
-        ) : (
-          <>
+          ) : (
+            <>
+              <button
+                onClick={() => setCollapsed(!collapsed)}
+                className={`
+                absolute  top-[34px]
+                hidden lg:flex
+                h-6 w-6
+                items-center justify-center
+                rounded-full
+                border border-[#3a3a3a]
+                bg-[#222222]
+                text-gray-400
+                transition
+                hover:bg-[#303030]
+                hover:text-white
+              `}
+              >
+                {collapsed ? (
+                  <ChevronRight size={28} />
+                ) : (
+                  <ChevronLeft size={14} />
+                )}
+              </button>
+            </>
+          )}
+
+          {/* Desktop collapse */}
+          {!collapsed && (
             <button
               onClick={() => setCollapsed(!collapsed)}
               className={`
-                absolute  top-[34px]
+                absolute -right-3 top-[34px]
                 hidden lg:flex
                 h-6 w-6
                 items-center justify-center
@@ -105,40 +148,17 @@ const Sidebar = () => {
               `}
             >
               {collapsed ? (
-                <ChevronRight size={28} />
+                <ChevronRight size={14} />
               ) : (
                 <ChevronLeft size={14} />
               )}
             </button>
-          </>
-        )}
+          )}
 
-        {/* Desktop collapse */}
-        {!collapsed && (
+          {/* Mobile close */}
           <button
-            onClick={() => setCollapsed(!collapsed)}
-            className={`
-                absolute -right-3 top-[34px]
-                hidden lg:flex
-                h-6 w-6
-                items-center justify-center
-                rounded-full
-                border border-[#3a3a3a]
-                bg-[#222222]
-                text-gray-400
-                transition
-                hover:bg-[#303030]
-                hover:text-white
-              `}
-          >
-            {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
-          </button>
-        )}
-
-        {/* Mobile close */}
-        <button
-          onClick={() => setMobileMenu(false)}
-          className="
+            onClick={() => setMobileMenu(false)}
+            className="
                 absolute right-4
                 flex lg:hidden
                 h-8 w-8
@@ -148,39 +168,39 @@ const Sidebar = () => {
                 text-gray-300
                 hover:text-white
               "
-        >
-          <X size={18} />
-        </button>
-      </div>
+          >
+            <X size={18} />
+          </button>
+        </div>
 
-      {/* ================================================= */}
-      {/* NAVIGATION */}
-      {/* ================================================= */}
+        {/* ================================================= */}
+        {/* NAVIGATION */}
+        {/* ================================================= */}
 
-      <nav className="px-2 py-5">
-        {menuItems.map((item, index) => {
-          const Icon = item.icon;
-          //   const active = activeMenu.at. === item.label;
-          const active = pathname === item.path;
-          return (
-            <motion.button
-              key={item.label}
-              initial={{
-                opacity: 0,
-                x: -15,
-              }}
-              animate={{
-                opacity: 1,
-                x: 0,
-              }}
-              transition={{
-                delay: index * 0.06,
-              }}
-              onClick={() => {
-                handleMenuClick(item.label);
-                router.push(item.path);
-              }}
-              className={`
+        <nav className="px-2 py-5 ">
+          {menuItems.map((item, index) => {
+            const Icon = item.icon;
+            //   const active = activeMenu.at. === item.label;
+            const active = pathname === item.path;
+            return (
+              <motion.button
+                key={item.label}
+                initial={{
+                  opacity: 0,
+                  x: -15,
+                }}
+                animate={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                transition={{
+                  delay: index * 0.06,
+                }}
+                onClick={() => {
+                  handleMenuClick(item.label);
+                  router.push(item.path);
+                }}
+                className={`
                     group
                     mb-2
                     flex
@@ -202,33 +222,33 @@ const Sidebar = () => {
                       : "text-[#a6a6a6] hover:bg-[#292929] hover:text-white"
                 }
                   `}
-            >
-              <Icon
-                size={19}
-                strokeWidth={1.8}
-                className={
-                  active
-                    ? "text-white"
-                    : "text-[#9ca3af] group-hover:text-white"
-                }
-              />
+              >
+                <Icon
+                  size={19}
+                  strokeWidth={1.8}
+                  className={
+                    active
+                      ? "text-white"
+                      : "text-[#9ca3af] group-hover:text-white"
+                  }
+                />
 
-              <span className={`${collapsed ? "lg:hidden" : "block"}`}>
-                {item.label}
-              </span>
-            </motion.button>
-          );
-        })}
-      </nav>
+                <span className={`${collapsed ? "lg:hidden" : "block"}`}>
+                  {item.label}
+                </span>
+              </motion.button>
+            );
+          })}
+        </nav>
 
-      {/* ================================================= */}
-      {/* USER */}
-      {/* ================================================= */}
+        {/* ================================================= */}
+        {/* USER */}
+        {/* ================================================= */}
 
-      {!collapsed && (
-        <div
-        onClick={() => setIsOpen(!isOpen)}
-          className="
+        {!collapsed && (
+          <div
+            onClick={() => setIsOpen(!isOpen)}
+            className="
                 absolute
                 bottom-0
                 left-0
@@ -242,10 +262,10 @@ const Sidebar = () => {
                 py-4
                 cursor-pointer
               "
-        >
-          <div
-          onClick={() => setIsOpen(!isOpen)}
-            className="
+          >
+            <div
+              onClick={() => setIsOpen(!isOpen)}
+              className="
                   flex
                   h-9
                   w-9
@@ -256,18 +276,18 @@ const Sidebar = () => {
                   rounded-full
                   bg-[#3b3b3b]
                 "
-          >
-            <UserRound size={20} className="text-gray-300" />
-          </div>
+            >
+              <UserRound size={20} className="text-gray-300" />
+            </div>
 
-          <div>
-            <p className="text-sm font-medium text-white">Ghulam Hassan</p>
+            <div>
+              <p className="text-sm font-medium text-white">Ghulam Hassan</p>
+            </div>
           </div>
-        </div>
-      )}
-      {collapsed && (
-        <div
-          className="
+        )}
+        {collapsed && (
+          <div
+            className="
                 absolute
                 bottom-0
                 left-0
@@ -280,10 +300,10 @@ const Sidebar = () => {
                 px-3
                 py-4
               "
-        >
-          <div
-            onClick={() => setIsOpen(!isOpen)}
-            className="
+          >
+            <div
+              onClick={() => setIsOpen(!isOpen)}
+              className="
                   flex
                   h-9
                   w-9
@@ -295,25 +315,27 @@ const Sidebar = () => {
                   bg-[#3b3b3b]
                   cursor-pointer
                 "
-          >
-            <UserRound size={20} className="text-gray-300" />
-          </div>
-
-          <div>
-            <p
-              className={
-                collapsed ? "lg:hidden" : "block text-sm font-medium text-white"
-              }
             >
-              Ghulam Hassan
-            </p>
+              <UserRound size={20} className="text-gray-300" />
+            </div>
+
+            <div>
+              <p
+                className={
+                  collapsed
+                    ? "lg:hidden"
+                    : "block text-sm font-medium text-white"
+                }
+              >
+                Ghulam Hassan
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <div className="relative bottom-20">
-
-      {/* Dropdown Animation */}
+        <div className="relative bottom-20"></div>
+        {/* Dropdown Animation */}
+      </motion.aside>
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -336,28 +358,39 @@ const Sidebar = () => {
               duration: 0.18,
               ease: "easeOut",
             }}
-            className="absolute right-0 top-12 z-50 w-[150px] rounded-lg border border-[#3b3b3b] bg-[#202020] p-1.5 shadow-xl"
+            className="fixed bottom-15 left-[100px] z-[99] w-[150px] rounded-xl border border-[#383838] bg-[#1f1f1f] p-1.5 shadow-2xl text-white pointer-events-auto"
           >
             {/* Profile */}
             <button
               onClick={() => router.push("/dashboard/student/profile")}
-              className="flex w-full items-center gap-3 rounded-md px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#303030]"
+              className="flex w-full items-center gap-3 rounded-md px-2 py-2 text-left text-[12px] text-gray-200 transition-colors hover:bg-[#303030]"
             >
               <UserRound size={18} strokeWidth={1.7} />
               <span>Profile</span>
             </button>
 
             {/* Light Mode */}
-            <button
-              className="flex w-full items-center gap-3 rounded-md px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#303030]"
-            >
-              <Sun size={18} strokeWidth={1.7} />
-              <span>Light Mode</span>
-            </button>
+           <button
+      onClick={toggleTheme}
+      className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-gray-200 hover:bg-[#2a2a2a] transition"
+    >
+      {theme === "dark" ? (
+        <>
+          <Sun size={17} className="text-gray-400" />
+          <span>Light Mode</span>
+        </>
+      ) : (
+        <>
+          <Moon size={17} className="text-gray-400" />
+          <span>Dark Mode</span>
+        </>
+      )}
+    </button>
 
             {/* Logout */}
             <button
-              className="flex w-full items-center gap-3 rounded-md bg-[#303030] px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#3a3a3a]"
+              className="flex w-full items-center gap-3 rounded-md  px-2 py-2 text-left text-[12px] text-gray-200 transition-colors hover:bg-[#3a3a3a]"
+              onClick={handleLogout}
             >
               <LogOut size={18} strokeWidth={1.7} />
               <span>Log out</span>
@@ -365,8 +398,7 @@ const Sidebar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
-    </motion.aside>
+    </>
   );
 };
 
