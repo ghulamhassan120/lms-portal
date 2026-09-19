@@ -1,13 +1,16 @@
-'use client';
+"use client";
 import React, { useContext } from "react";
 import { motion, Variants } from "framer-motion";
 import { FileText, CheckSquare, Clock, Eye, Upload, Edit3 } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
 import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 import Header from "@/components/Header/Header";
+import AssignmentViewModel from "@/components/AssignmentViewModel/AssignmentViewModel";
+import { assignmentRecords } from "@/config/assest";
+import AssignmentEditModal from "@/components/AssignmentEditModal/AssignmentEditModal";
 
 // Animation Variants
-const containerVariants:Variants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -18,65 +21,22 @@ const containerVariants:Variants = {
   },
 };
 
-const itemVariants :Variants= {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: "easeOut" as const}
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
 };
 
-const assignmentRecords = [
-  {
-    title: "Admin panel (E commerce Dashboard)",
-    topics: "7 Topics",
-    dueDate: "September 10, 2026",
-    status: "APPROVED",
-    statusType: "approved",
-    isHackathon: false,
-    actionState: "active"
-  },
-  {
-    title: "QUICKSERVE WMA (Batch-20)",
-    topics: "No topics",
-    dueDate: "August 29, 2026",
-    status: "NOT SUBMITTED",
-    statusType: "not-submitted",
-    isHackathon: true,
-    actionState: "closed"
-  },
-  {
-    title: "E-Commerce Website (React js)",
-    topics: "4 Topics",
-    dueDate: "August 17, 2026",
-    status: "APPROVED",
-    statusType: "approved",
-    isHackathon: false,
-    actionState: "active"
-  },
-  {
-    title: "Furniture E-Commerce Website",
-    topics: "5 Topics",
-    dueDate: "August 10, 2026",
-    status: "SUBMITTED",
-    statusType: "submitted",
-    isHackathon: false,
-    actionState: "active"
-  },
-  {
-    title: "MaintainIQ (Batch-20)",
-    topics: "No topics",
-    dueDate: "July 11, 2026",
-    status: "NOT SUBMITTED",
-    statusType: "not-submitted",
-    isHackathon: true,
-    actionState: "closed"
-  },
-];
-
 export default function AssignmentPage() {
-  const { collapsed } = useSidebar()
+  const {
+    collapsed,
+    setIsModalOpen,
+    setSelectedAssignment,
+    setIsEditModalOpen,
+  } = useSidebar();
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#111111] text-white">
@@ -99,17 +59,19 @@ export default function AssignmentPage() {
             ml-0
             ${collapsed ? "lg:ml-[78px]" : "lg:ml-[196px]"}
             `}
-            >
-            <Header/>
+        >
+          <Header />
           {/* ================= TOP STATS CARDS ================= */}
-          <motion.div 
+          <motion.div
             variants={itemVariants}
             className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6"
           >
             {/* Assigned */}
             <div className="flex items-center justify-between rounded-xl border border-[#343434] bg-[#232323] p-5">
               <div>
-                <div className="text-[27px] font-semibold text-[#e5e7eb]">16</div>
+                <div className="text-[27px] font-semibold text-[#e5e7eb]">
+                  16
+                </div>
                 <p className="mt-1 text-sm text-gray-400">Assigned</p>
               </div>
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1b253b]">
@@ -120,7 +82,9 @@ export default function AssignmentPage() {
             {/* Submitted */}
             <div className="flex items-center justify-between rounded-xl border border-[#343434] bg-[#232323] p-5">
               <div>
-                <div className="text-[27px] font-semibold text-[#e5e7eb]">6</div>
+                <div className="text-[27px] font-semibold text-[#e5e7eb]">
+                  6
+                </div>
                 <p className="mt-1 text-sm text-gray-400">Submitted</p>
               </div>
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#18302d]">
@@ -131,7 +95,9 @@ export default function AssignmentPage() {
             {/* Pending */}
             <div className="flex items-center justify-between rounded-xl border border-[#343434] bg-[#232323] p-5">
               <div>
-                <div className="text-[27px] font-semibold text-[#e5e7eb]">10</div>
+                <div className="text-[27px] font-semibold text-[#e5e7eb]">
+                  10
+                </div>
                 <p className="mt-1 text-sm text-gray-400">Pending</p>
               </div>
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#383018]">
@@ -141,7 +107,7 @@ export default function AssignmentPage() {
           </motion.div>
 
           {/* ================= ASSIGNMENT TABLE SECTION ================= */}
-          <motion.div 
+          <motion.div
             variants={itemVariants}
             className="rounded-xl border border-[#343434] bg-[#232323] p-4 sm:p-5 shadow-lg"
           >
@@ -158,9 +124,11 @@ export default function AssignmentPage() {
                 </thead>
                 <tbody className="divide-y divide-[#343434]">
                   {assignmentRecords.map((record, index) => (
-                    <motion.tr 
-                      whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.02)" }}
-                      key={index} 
+                    <motion.tr
+                      whileHover={{
+                        backgroundColor: "rgba(255, 255, 255, 0.02)",
+                      }}
+                      key={index}
                       className={`transition ${record.isHackathon ? "bg-[#1c1525]" : ""}`}
                     >
                       {/* Assignment Title & Hackathon Badge */}
@@ -177,17 +145,21 @@ export default function AssignmentPage() {
 
                       {/* Topics */}
                       <td className="py-4 px-4">
-                        <span className={`inline-block px-2.5 py-1 rounded-md text-xs font-medium ${
-                          record.topics === "No topics" 
-                            ? "text-gray-400" 
-                            : "bg-[#162938] text-[#38bdf8] border border-[#38bdf8]/30"
-                        }`}>
+                        <span
+                          className={`inline-block px-2.5 py-1 rounded-md text-xs font-medium ${
+                            record.topics === "No topics"
+                              ? "text-gray-400"
+                              : "bg-[#162938] text-[#38bdf8] border border-[#38bdf8]/30"
+                          }`}
+                        >
                           {record.topics}
                         </span>
                       </td>
 
                       {/* Due Date */}
-                      <td className="py-4 px-4 text-gray-300">{record.dueDate}</td>
+                      <td className="py-4 px-4 text-gray-300">
+                        {record.dueDate}
+                      </td>
 
                       {/* Status */}
                       <td className="py-4 px-4">
@@ -196,8 +168,8 @@ export default function AssignmentPage() {
                             record.statusType === "approved"
                               ? "bg-[#18302d] text-[#00c98b] border border-[#00c98b]/30"
                               : record.statusType === "submitted"
-                              ? "bg-[#162938] text-[#38bdf8] border border-[#38bdf8]/30"
-                              : "bg-[#252525] text-gray-400 border border-[#3d3d3d]"
+                                ? "bg-[#162938] text-[#38bdf8] border border-[#38bdf8]/30"
+                                : "bg-[#252525] text-gray-400 border border-[#3d3d3d]"
                           }`}
                         >
                           {record.status}
@@ -208,20 +180,51 @@ export default function AssignmentPage() {
                       <td className="py-4 px-4 text-right">
                         {record.actionState === "closed" ? (
                           <div className="flex items-center justify-end gap-3 text-xs italic text-[#ef4444]">
-                            <button title="View" className="text-gray-400 hover:text-white transition not-italic">
+                            <button
+                              title="View"
+                              className="text-gray-400 hover:text-white transition not-italic"
+                            >
                               <Eye size={17} />
                             </button>
                             <span>Submissions closed</span>
                           </div>
                         ) : (
                           <div className="flex items-center justify-end gap-3 text-gray-400">
-                            <button title="View" className="hover:text-white transition">
+                            <button
+                              title="View"
+                              className="hover:text-white transition cursor-pointer"
+                              onClick={() => {
+                                setIsModalOpen(true);
+                                setSelectedAssignment(record);
+                              }}
+                            >
                               <Eye size={17} />
                             </button>
-                            <button title="Upload" className="hover:text-white transition">
+                            <button
+                              title="Upload"
+                              className="hover:text-white transition"
+                            >
                               <Upload size={17} />
                             </button>
-                            <button title="Edit" className="hover:text-white transition">
+                            <button
+                              title={
+                                record.status === "APPROVED"
+                                  ? "Approved assignments cannot be edited"
+                                  : "Edit"
+                              }
+                              disabled={record.status === "APPROVED"}
+                              onClick={() => {
+                                if (record.status !== "APPROVED") {
+                                  setSelectedAssignment(record);
+                                  setIsEditModalOpen(true);
+                                }
+                              }}
+                              className={`transition ${
+                                record.status === "APPROVED"
+                                  ? "opacity-30 cursor-not-allowed text-gray-600"
+                                  : "hover:text-white text-gray-400"
+                              }`}
+                            >
                               <Edit3 size={17} />
                             </button>
                           </div>
@@ -235,6 +238,8 @@ export default function AssignmentPage() {
           </motion.div>
         </motion.main>
       </div>
+      <AssignmentViewModel />
+      <AssignmentEditModal/>
     </div>
   );
 }

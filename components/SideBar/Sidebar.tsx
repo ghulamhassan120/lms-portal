@@ -1,10 +1,18 @@
 "use client";
 import { menuItems } from "@/config/menu";
 import { ContextType, SidebarContext, useSidebar } from "@/context/context";
-import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, UserRound, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  ChevronLeft,
+  ChevronRight,
+  LogOut,
+  Sun,
+  User,
+  UserRound,
+  X,
+} from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 const Sidebar = () => {
   const {
@@ -14,13 +22,29 @@ const Sidebar = () => {
     mobileMenu,
     activeMenu,
     setCollapsed,
-  } = useSidebar()
+  } = useSidebar();
   const router = useRouter();
   const pathname = usePathname();
-  const handleMenuClick = (label:any) => {
+  const handleMenuClick = (label: any) => {
     setActiveMenu(label);
     setMobileMenu(false);
   };
+
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   return (
     <motion.aside
       initial={{ x: -80, opacity: 0 }}
@@ -136,8 +160,8 @@ const Sidebar = () => {
       <nav className="px-2 py-5">
         {menuItems.map((item, index) => {
           const Icon = item.icon;
-        //   const active = activeMenu.at. === item.label;
-const active = pathname === item.path;
+          //   const active = activeMenu.at. === item.label;
+          const active = pathname === item.path;
           return (
             <motion.button
               key={item.label}
@@ -189,7 +213,7 @@ const active = pathname === item.path;
                 }
               />
 
-             <span className={`${collapsed ? "lg:hidden" : "block"}`}>
+              <span className={`${collapsed ? "lg:hidden" : "block"}`}>
                 {item.label}
               </span>
             </motion.button>
@@ -203,6 +227,7 @@ const active = pathname === item.path;
 
       {!collapsed && (
         <div
+        onClick={() => setIsOpen(!isOpen)}
           className="
                 absolute
                 bottom-0
@@ -215,9 +240,11 @@ const active = pathname === item.path;
                 border-[#303030]
                 px-3
                 py-4
+                cursor-pointer
               "
         >
           <div
+          onClick={() => setIsOpen(!isOpen)}
             className="
                   flex
                   h-9
@@ -255,6 +282,7 @@ const active = pathname === item.path;
               "
         >
           <div
+            onClick={() => setIsOpen(!isOpen)}
             className="
                   flex
                   h-9
@@ -265,17 +293,79 @@ const active = pathname === item.path;
                   overflow-hidden
                   rounded-full
                   bg-[#3b3b3b]
+                  cursor-pointer
                 "
           >
             <UserRound size={20} className="text-gray-300" />
           </div>
 
-
-            <div>
-            <p className={collapsed ? "lg:hidden" : "block text-sm font-medium text-white"}>Ghulam Hassan</p>
+          <div>
+            <p
+              className={
+                collapsed ? "lg:hidden" : "block text-sm font-medium text-white"
+              }
+            >
+              Ghulam Hassan
+            </p>
           </div>
         </div>
       )}
+
+      <div className="relative bottom-20">
+
+      {/* Dropdown Animation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -8,
+              scale: 0.96,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              scale: 1,
+            }}
+            exit={{
+              opacity: 0,
+              y: -8,
+              scale: 0.96,
+            }}
+            transition={{
+              duration: 0.18,
+              ease: "easeOut",
+            }}
+            className="absolute right-0 top-12 z-50 w-[150px] rounded-lg border border-[#3b3b3b] bg-[#202020] p-1.5 shadow-xl"
+          >
+            {/* Profile */}
+            <button
+              onClick={() => router.push("/dashboard/student/profile")}
+              className="flex w-full items-center gap-3 rounded-md px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#303030]"
+            >
+              <UserRound size={18} strokeWidth={1.7} />
+              <span>Profile</span>
+            </button>
+
+            {/* Light Mode */}
+            <button
+              className="flex w-full items-center gap-3 rounded-md px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#303030]"
+            >
+              <Sun size={18} strokeWidth={1.7} />
+              <span>Light Mode</span>
+            </button>
+
+            {/* Logout */}
+            <button
+              className="flex w-full items-center gap-3 rounded-md bg-[#303030] px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#3a3a3a]"
+            >
+              <LogOut size={18} strokeWidth={1.7} />
+              <span>Log out</span>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
     </motion.aside>
   );
 };

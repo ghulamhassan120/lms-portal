@@ -7,6 +7,12 @@ export type ContextType = {
   setCollapsed:React.Dispatch<React.SetStateAction<Boolean>>;
   mobileMenu:Boolean;
   setMobileMenu:React.Dispatch<React.SetStateAction<Boolean>>;
+  isModalOpen:Boolean;
+  setIsModalOpen:React.Dispatch<React.SetStateAction<Boolean>>;
+  selectedAssignment: any;
+  setSelectedAssignment: (assignment: any) => void; 
+  isEditModalOpen: any;
+  setIsEditModalOpen: (assignment: any) => void; 
 };
 export const SidebarContext = createContext<ContextType | undefined>(
   undefined
@@ -15,6 +21,9 @@ export const SidebarProvider = ({ children }:any) => {
   const [activeMenu, setActiveMenu] = useState<string>("Dashboard");
   const [collapsed, setCollapsed] = useState<Boolean>(false);
     const [mobileMenu, setMobileMenu] = useState<Boolean>(false);
+     const [isModalOpen, setIsModalOpen] = useState<Boolean>(false);
+     const [selectedAssignment, setSelectedAssignment] = useState<any>();
+     const [isEditModalOpen, setIsEditModalOpen] = useState<any>();
 
   return (
     <SidebarContext.Provider
@@ -24,7 +33,14 @@ export const SidebarProvider = ({ children }:any) => {
         collapsed,
         setCollapsed,
         mobileMenu,
-        setMobileMenu
+        setMobileMenu,
+        isModalOpen,
+        setIsModalOpen,
+        selectedAssignment,
+        setSelectedAssignment,
+        setIsEditModalOpen,
+        isEditModalOpen
+
       }}
     >
       {children}

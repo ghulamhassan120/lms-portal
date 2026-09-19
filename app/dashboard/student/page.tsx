@@ -48,6 +48,7 @@ const staggerContainer:Variants = {
 function Dashboard() {
  const {setActiveMenu,setMobileMenu,collapsed,mobileMenu,activeMenu,setCollapsed}=useSidebar()
   const [activeTab, setActiveTab] = useState("Quizzes");
+  const router=useRouter()
 
  
 
@@ -123,6 +124,7 @@ function Dashboard() {
               {/* Attendance */}
               <motion.div
                 variants={fadeUp}
+                onClick={()=>router.push('/dashboard/student/attendance')}
                 className="
                   flex
                   min-h-[107px]
@@ -166,6 +168,7 @@ function Dashboard() {
               {/* Assignment */}
               <motion.div
                 variants={fadeUp}
+                onClick={()=>router.push('/dashboard/student/assignment')}
                 className="
                   flex
                   min-h-[107px]
