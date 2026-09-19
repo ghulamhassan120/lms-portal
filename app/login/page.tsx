@@ -9,7 +9,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [dob, setDob] = useState("");
   const [activeTab, setActiveTab] = useState<"login" | "create">("login");
-  const [role, setRole] = useState<"student" | "teacher" | "admin">("student");
+  const [role, setRole] = useState<"student" | "teacher" | "admin">("admin");
   const [cnic, setCnic] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();

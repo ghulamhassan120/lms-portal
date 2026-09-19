@@ -4,6 +4,7 @@ import { motion, Variants } from "framer-motion";
 import { FileText, CheckSquare, Clock, Eye, Upload, Edit3 } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
 import { ContextType, SidebarContext, useSidebar } from "@/context/context";
+import Header from "@/components/Header/Header";
 
 // Animation Variants
 const containerVariants:Variants = {
@@ -97,8 +98,9 @@ export default function AssignmentPage() {
             sm:p-6
             ml-0
             ${collapsed ? "lg:ml-[78px]" : "lg:ml-[196px]"}
-          `}
-        >
+            `}
+            >
+            <Header/>
           {/* ================= TOP STATS CARDS ================= */}
           <motion.div 
             variants={itemVariants}

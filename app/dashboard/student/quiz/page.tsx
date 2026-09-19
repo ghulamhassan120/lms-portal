@@ -4,6 +4,7 @@ import { motion, Variants } from "framer-motion";
 import { AlertTriangle } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
 import { ContextType, SidebarContext, useSidebar } from "@/context/context";
+import Header from "@/components/Header/Header";
 
 // Animation Variants
 const containerVariants :Variants = {
@@ -95,6 +96,7 @@ export default function QuizPage() {
             ${collapsed ? "lg:ml-[78px]" : "lg:ml-[196px]"}
           `}
         >
+            <Header/>
           {/* ================= IMPORTANT INFORMATION BANNER ================= */}
           <motion.div 
             variants={itemVariants}

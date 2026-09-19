@@ -4,6 +4,7 @@ import { motion, AnimatePresence, Variant, Variants } from "framer-motion";
 import { Calendar, CheckCircle2, XCircle, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
 import { ContextType, SidebarContext, useSidebar } from "@/context/context";
+import Header from "@/components/Header/Header";
 
 // Animation Variants
 const containerVariants :Variants= {
@@ -67,6 +68,7 @@ export default function AttendancePage() {
             ${collapsed ? "lg:ml-[78px]" : "lg:ml-[196px]"}
           `}
         >
+            <Header/>
           {/* ================= TOP STATS CARDS ================= */}
           <motion.div 
             variants={itemVariants}

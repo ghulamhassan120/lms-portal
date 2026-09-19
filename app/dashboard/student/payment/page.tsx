@@ -4,6 +4,7 @@ import { motion, Variants } from "framer-motion";
 import { Copy, Check, ExternalLink } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
 import { ContextType, SidebarContext, useSidebar } from "@/context/context";
+import Header from "@/components/Header/Header";
 
 // Animation Variants for Out-class Smooth Effect
 const containerVariants:Variants = {
@@ -63,6 +64,7 @@ export default function PaymentPage() {
             ${collapsed ? "lg:ml-[78px]" : "lg:ml-[196px]"}
           `}
         >
+            <Header/>
           {/* ================= PAYMENT INSTRUCTIONS BANNER ================= */}
           <motion.div 
             variants={itemVariants}
