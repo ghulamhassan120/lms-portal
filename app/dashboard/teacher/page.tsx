@@ -19,7 +19,7 @@ import {
   ChevronDown
 } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
-import { ContextType, SidebarContext } from "@/context/context";
+import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 import TeacherSidebar from "@/components/SideBar/TeacherSidebar";
 
 // Animation Variants
@@ -41,7 +41,7 @@ const itemVariants: Variants = {
 };
 
 export default function TeacherCoursePage() {
-  const { collapsed, setMobileMenu, mobileMenu } = useContext<ContextType>(SidebarContext);
+  const { collapsed, setMobileMenu, mobileMenu } = useSidebar()
   const [activeTab, setActiveTab] = useState("Students");
   const [searchQuery, setSearchQuery] = useState("");
 
