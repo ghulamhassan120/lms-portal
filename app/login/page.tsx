@@ -61,7 +61,7 @@ export default function Login() {
             className="w-[110px] h-auto mb-2"
           />
 
-          <div className="flex items-center gap-2 bg-[#202020] border border-[#333] px-3 py-1 rounded-full text-xs font-medium text-gray-300">
+          <div className={`flex items-center gap-2  ${isLight?"bg-[#202020]":"bg-[#FFF]"} border border-[#333] px-3 py-1 rounded-full text-xs font-medium text-gray-300`}>
             {role === "student" && <GraduationCap size={14} className="text-[#38bdf8]" />}
             {role === "teacher" && <BookUser size={14} className="text-[#00c98b]" />}
             {role === "admin" && <ShieldCheck size={14} className="text-[#f59e0b]" />}
@@ -76,7 +76,7 @@ export default function Login() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.4 }}
-          className="w-full h-[36px] bg-[#292929] rounded-[7px] p-[4px] flex mb-[12px]"
+          className={`w-full h-[36px]  ${isLight?"bg-[#292929]":"bg-[#f3f1f1]"} rounded-[7px] p-[4px] flex mb-[12px]`}
         >
           <button
             type="button"
@@ -91,7 +91,7 @@ export default function Login() {
           <button
             type="button"
             onClick={() => setActiveTab("create")}
-            className={`flex-1 rounded-[5px] text-[13px] font-medium transition-all duration-200 ${
+            className={`flex-1 rounded-[5px] text-[13px] font-medium transition-all duration-200 cursor-pointer ${
               activeTab === "create" ? "bg-[#111111] text-white shadow" : "text-[#858585]"
             }`}
           >
@@ -106,16 +106,15 @@ export default function Login() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="w-full bg-[#202020] border border-[#353535] rounded-[10px] px-[24px] pt-[22px] pb-[24px] shadow-xl relative overflow-hidden"
-        >
+          className={`w-full b ${isLight?"bg-[#202020]":"bg-[#FFF]"} border border-[#353535] rounded-[10px] px-[24px] pt-[22px] pb-[24px] shadow-xl relative overflow-hidden`}>
           {/* Quick Demo Fill Helper Banner */}
           {activeTab === "login" && (
-            <div className="mb-4 bg-[#1b222c] border border-[#233850] rounded-lg p-2.5 flex items-center justify-between text-xs">
+            <div className={`mb-4  ${isLight?"bg-[#1b222c]":"bg-[#FFF]"} border border-[#233850] rounded-lg p-2.5 flex items-center justify-between text-xs`}>
               <span className="text-[#38bdf8]">Testing mode active</span>
               <button 
                 type="button" 
                 onClick={fillDemoCredentials}
-                className="text-white underline hover:text-[#38bdf8] font-medium transition"
+                className="text-white underline hover:text-[#38bdf8] font-medium transition cursor-pointer"
               >
                 Auto-fill Demo
               </button>
@@ -147,7 +146,7 @@ export default function Login() {
                     value={cnic}
                     onChange={(e) => setCnic(e.target.value)}
                     placeholder="e.g 42201-2478431-9"
-                    className="w-full h-[38px] bg-[#1d1d1d] border border-[#404040] rounded-[6px] outline-none px-[12px] text-[13px] focus:border-[#155da0] transition-colors"
+                    className={`w-full h-[38px]  ${isLight?"bg-[#1d1d1d]":"bg-[#FFF]"} border border-[#404040] rounded-[6px] outline-none px-[12px] text-[13px] focus:border-[#155da0] transition-colors`}
                   />
                   </>:
                   <>
@@ -158,7 +157,7 @@ export default function Login() {
                     value={cnic}
                     onChange={(e) => setCnic(e.target.value)}
                     placeholder="example@gmail.com"
-                    className="w-full h-[38px] bg-[#1d1d1d] border border-[#404040] rounded-[6px] outline-none px-[12px] text-[13px] focus:border-[#155da0] transition-colors"
+                    className={`w-full h-[38px] ${isLight?"bg-[#1d1d1d]":"bg-[#FFF]"} border border-[#404040] rounded-[6px] outline-none px-[12px] text-[13px] focus:border-[#155da0] transition-colors`}
                   />
                   </>}
                
@@ -174,12 +173,12 @@ export default function Login() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter password"
-                      className="w-full h-[38px] bg-[#1d1d1d] border border-[#404040] rounded-[6px] outline-none px-[12px] pr-[35px] text-[13px] focus:border-[#155da0] transition-colors"
+                      className={`w-full h-[38px] ${isLight?"bg-[#1d1d1d]":"bg-[#FFF]"} border border-[#404040] rounded-[6px] outline-none px-[12px] pr-[35px] text-[13px] focus:border-[#155da0] transition-colors`}
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-[10px] top-1/2 -translate-y-1/2 text-[#777] hover:text-white transition-colors"
+                      className="absolute right-[10px] top-1/2 -translate-y-1/2 text-[#777] hover:text-white transition-colors cursor-pointer"
                     >
                       {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                     </button>
@@ -191,7 +190,7 @@ export default function Login() {
                   whileTap={{ scale: 0.97 }}
                   type="submit"
                   disabled={isLoading}
-                  className="w-full h-[38px] rounded-[6px] bg-[#155a98] hover:bg-[#1967ad] text-[13px] font-medium transition-colors flex items-center justify-center gap-2 shadow-md cursor-pointer"
+                  className={`w-full h-[38px] rounded-[6px] ${!isLight&&"!text-white"} !bg-[#2B4F8C] hover:bg-[#1967ad] text-[13px] font-medium transition-colors flex items-center justify-center gap-2 shadow-md cursor-pointer`}
                 >
                   {isLoading ? (
                     <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -217,7 +216,7 @@ export default function Login() {
                     value={cnic}
                     onChange={(e) => setCnic(e.target.value)}
                     placeholder="e.g. 42101-1234567-1"
-                    className="w-full h-[38px] bg-[#1d1d1d] border border-[#404040] rounded-[6px] outline-none px-[12px] text-[13px] focus:border-[#155da0]"
+                    className={`w-full h-[38px] ${isLight?"bg-[#1d1d1d]":"bg-[#FFF]"} border border-[#404040] rounded-[6px] outline-none px-[12px] text-[13px] focus:border-[#155da0]`}
                   />
                 </div>
 
@@ -228,7 +227,7 @@ export default function Login() {
                     required
                     value={dob}
                     onChange={(e) => setDob(e.target.value)}
-                    className="w-full h-[38px] bg-[#1d1d1d] border border-[#404040] rounded-[6px] outline-none px-[12px] text-[13px] text-white focus:border-[#155da0]"
+                    className={`w-full h-[38px] ${isLight?"bg-[#1d1d1d]":"bg-[#FFF]"} border border-[#404040] rounded-[6px] outline-none px-[12px] text-[13px] text-white focus:border-[#155da0]`}
                   />
                 </div>
 
@@ -240,7 +239,7 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter new password"
-                    className="w-full h-[38px] bg-[#1d1d1d] border border-[#404040] rounded-[6px] outline-none px-[12px] text-[13px] focus:border-[#155da0]"
+                    className={`w-full h-[38px] ${isLight?"bg-[#1d1d1d]":"bg-[#FFF]"}  border border-[#404040] rounded-[6px] outline-none px-[12px] text-[13px] focus:border-[#155da0]`}
                   />
                 </div>
 
@@ -248,7 +247,7 @@ export default function Login() {
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.97 }}
                   type="submit"
-                  className="w-full h-[38px] rounded-[6px] bg-[#155a98] hover:bg-[#1967ad] text-[13px] font-medium transition-colors shadow-md"
+                  className="w-full h-[38px] rounded-[6px] !bg-[#155a98] hover:bg-[#1967ad] text-[13px] font-medium transition-colors shadow-md dark:!text-white"
                 >
                   SUBMIT
                 </motion.button>
@@ -262,7 +261,7 @@ export default function Login() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="mt-3 flex items-center justify-between bg-[#202020] border border-[#353535] rounded-[8px] p-2 px-4"
+          className={`mt-3 flex items-center justify-between  ${isLight?"bg-[#202020]":"bg-[#FFF]"} border border-[#353535] rounded-[8px] p-2 px-4`}
         >
           <span className="text-xs text-gray-400">Switch Portal View:</span>
           <motion.button
@@ -275,7 +274,7 @@ export default function Login() {
               setCnic("");
               setPassword("");
             }}
-            className="text-xs font-semibold text-[#38bdf8] hover:underline flex items-center gap-1.5 py-1 px-2 rounded bg-[#2b2b2b]"
+            className="text-xs font-semibold text-[#38bdf8] hover:underline flex items-center gap-1.5 py-1 px-2 rounded bg-[#2b2b2b] cursor-pointer"
           >
             <UserCheck size={13} />
             <span>
