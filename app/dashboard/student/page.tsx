@@ -22,26 +22,7 @@ import { classDays, schedule } from "@/config/assest";
 import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 import Sidebar from "@/components/SideBar/Sidebar";
 import Header from "@/components/Header/Header";
-
-const fadeUp = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-  },
-};
-
-const staggerContainer: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-};
+import { fadeUp, staggerContainer } from "@/components/animation/motion";
 
 function Dashboard() {
   const {
@@ -93,22 +74,16 @@ function Dashboard() {
 
           <Header />
 
-          {/* ================================================= */}
           {/* CONTENT */}
-          {/* ================================================= */}
 
           <div
             className="
               p-3
-
               sm:p-4
-
               lg:p-5
             "
           >
-            {/* ================================================= */}
             {/* TOP CARDS */}
-            {/* ================================================= */}
 
             <motion.div
               variants={staggerContainer}
@@ -118,9 +93,7 @@ function Dashboard() {
                 grid
                 grid-cols-1
                 gap-4
-
                 md:grid-cols-2
-
                 xl:grid-cols-[1fr_1fr_337px]
               "
             >
@@ -128,7 +101,7 @@ function Dashboard() {
               <motion.div
                 variants={fadeUp}
                 onClick={() => router.push("/dashboard/student/attendance")}
-                className="
+                className={`
                   flex
                   min-h-[107px]
                   items-center
@@ -136,24 +109,21 @@ function Dashboard() {
                   rounded-xl
                   border
                   border-[#343434]
-                  bg-[#232323]
+                     ${isLight ? "bg-[#fff]" : "bg-[#232323]"}
                   px-5
-
                   sm:px-6
-                "
+                `}
               >
                 <div>
                   <div className="text-[27px] font-medium">
                     <span className="text-[#e5e7eb]">63</span>
-
                     <span className="text-gray-400">/129</span>
                   </div>
-
                   <p className="mt-1 text-sm text-white">Attendance</p>
                 </div>
 
                 <div
-                  className="
+                  className={`
                     flex
                     h-10
                     w-10
@@ -161,8 +131,10 @@ function Dashboard() {
                     items-center
                     justify-center
                     rounded-full
-                    bg-[#18302d]
-                  "
+                       ${
+                  isLight?"bg-[#D1FAE5]":"bg-[#232323]"
+                  }
+                  `}
                 >
                   <Clock3 size={21} className="text-[#00c98b]" />
                 </div>
@@ -172,7 +144,7 @@ function Dashboard() {
               <motion.div
                 variants={fadeUp}
                 onClick={() => router.push("/dashboard/student/assignment")}
-                className="
+                className={`
                   flex
                   min-h-[107px]
                   items-center
@@ -180,24 +152,24 @@ function Dashboard() {
                   rounded-xl
                   border
                   border-[#343434]
-                  bg-[#232323]
+                  ${isLight ? "bg-[#fff]" : "bg-[#232323]"}
+                  
+                  
                   px-5
 
                   sm:px-6
-                "
+                `}
               >
                 <div>
                   <div className="text-[27px] font-medium">
                     <span className="text-[#e5e7eb]">9</span>
-
                     <span className="text-gray-400">/13</span>
                   </div>
-
                   <p className="mt-1 text-sm text-white">Assignment</p>
                 </div>
 
                 <div
-                  className="
+                  className={`
                     flex
                     h-10
                     w-10
@@ -205,8 +177,9 @@ function Dashboard() {
                     items-center
                     justify-center
                     rounded-full
-                    bg-[#2b2638]
-                  "
+                    ${isLight?"bg-[#EFE5FF]":'bg-[#2b2638]'}
+                    
+                  `}
                 >
                   <GraduationCap size={22} className="text-[#934cff]" />
                 </div>
@@ -215,17 +188,17 @@ function Dashboard() {
               {/* Schedule */}
               <motion.div
                 variants={fadeUp}
-                className="
+                className={`
                   rounded-xl
                   border
                   border-[#343434]
-                  bg-[#232323]
+                     ${isLight ? "bg-[#fff]" : "bg-[#232323]"}
                   p-3
 
                   md:col-span-2
 
                   xl:col-span-1
-                "
+                `}
               >
                 <div className="mb-3 flex items-center gap-2">
                   <CalendarDays size={19} />
@@ -252,10 +225,10 @@ function Dashboard() {
 
                      ${
                        item.active
-                         ? "border-[#00c978] bg-[#00c978] text-white shadow-sm" 
+                         ? "border-[#00c978] bg-[#00c978] text-white shadow-sm"
                          : isLight
-                           ? "border-gray-200 bg-white text-gray-800" 
-                           : "border-[#383838] bg-[#202020] text-gray-300" 
+                           ? "border-gray-200 bg-white text-gray-800"
+                           : "border-[#383838] bg-[#202020] text-gray-300"
                      }
                           
                       `}
@@ -269,9 +242,7 @@ function Dashboard() {
               </motion.div>
             </motion.div>
 
-            {/* ================================================= */}
             {/* COURSE + TABS */}
-            {/* ================================================= */}
 
             <div
               className="
@@ -283,9 +254,7 @@ function Dashboard() {
                 xl:grid-cols-[1fr_337px]
               "
             >
-              {/* ================================================= */}
               {/* ACTIVE COURSE */}
-              {/* ================================================= */}
 
               <motion.section
                 initial={{
@@ -299,31 +268,32 @@ function Dashboard() {
                 transition={{
                   delay: 0.25,
                 }}
-                className="
+                className={`
                   overflow-hidden
                   rounded-xl
                   border
                   border-[#343434]
-                  bg-[#232323]
-                "
+                     ${isLight ? "bg-[#fff]" : "bg-[#232323]"}
+                `}
               >
                 {/* Course Header */}
                 <div
-                  className="
-                    relative
-                    bg-[#1b2434]
-                    px-4
-                    py-5
+                    className={`
+                      relative
+                        ${
+                    isLight?"bg-[#fff]":"bg-[#232323]"
+                    }
+                      px-4
+                      py-5
 
-                    sm:px-6
-                  "
+                      sm:px-6
+                    `}
                 >
                   <div
                     className="
                       flex
                       flex-col
                       gap-3
-
                       lg:flex-row
                       lg:items-center
                       lg:justify-between
@@ -335,9 +305,7 @@ function Dashboard() {
                         font-bold
                         leading-tight
                         text-[#f3f4f6]
-
                         sm:text-[23px]
-
                         lg:text-[25px]
                       "
                     >
@@ -356,7 +324,7 @@ function Dashboard() {
                         text-[11px]
                         font-medium
                         text-[#00a9f4]
-                        ${isLight&&"bg-[#ADD8E6] "}
+                        ${isLight && "bg-[#ADD8E6] "}
                       `}
                     >
                       ENROLLED
@@ -387,7 +355,9 @@ function Dashboard() {
                           
                           sm:px-3
                           sm:text-xs
-                          ${isLight&&`rounded-md
+                          ${
+                            isLight &&
+                            `rounded-md
                           border
                           border-[#454545]
                           bg-[#ffffff]
@@ -397,7 +367,8 @@ function Dashboard() {
                           text-gray-950
 
                           sm:px-3
-                          sm:text-xs`}
+                          sm:text-xs`
+                          }
                           `}
                       >
                         {day}
@@ -424,8 +395,8 @@ function Dashboard() {
                   </div>
 
                   {/* Progress */}
-                  
-                  <div className="h-[8px] overflow-hidden rounded-full bg-[#353535]">
+
+                  <div className={`h-[8px] overflow-hidden rounded-full  ${isLight?"bg-[#eeecec]":"bg-[#353535]"}`}>
                     <motion.div
                       initial={{
                         width: 0,
@@ -438,7 +409,7 @@ function Dashboard() {
                         delay: 0.5,
                         ease: "easeOut" as const,
                       }}
-                      className={`h-full ${isLight?"bg-[#00c978]":"bg-[#00c978]"}`}
+                      className={`h-full ${isLight ? "bg-[#00c978]" : "bg-[#00c978]"}`}
                     />
                   </div>
 
@@ -468,9 +439,7 @@ function Dashboard() {
                 </div>
               </motion.section>
 
-              {/* ================================================= */}
               {/* TABS */}
-              {/* ================================================= */}
 
               <motion.section
                 initial={{
@@ -494,13 +463,15 @@ function Dashboard() {
                 "
               >
                 <div
-                  className="
+                  className={`
                     grid
                     grid-cols-3
                     rounded-lg
-                    bg-[#292929]
+                       ${
+                  isLight?"bg-[#fff]":"bg-[#232323]"
+                  }
                     p-1
-                  "
+                  `}
                 >
                   {["Assignments", "Quizzes", "Events"].map((tab) => (
                     <button
@@ -552,9 +523,7 @@ function Dashboard() {
               </motion.section>
             </div>
 
-            {/* ================================================= */}
             {/* FEE */}
-            {/* ================================================= */}
 
             <motion.section
               initial={{
@@ -582,11 +551,13 @@ function Dashboard() {
                 "
               >
                 <div
-                  className="
+                  className={`
                     min-w-[800px]
                     overflow-hidden
-                    bg-[#232323]
-                  "
+                       ${
+                  isLight?"bg-[#fff]":"bg-[#232323]"
+                  }
+                  `}
                 >
                   <div
                     className="
@@ -621,9 +592,7 @@ function Dashboard() {
   );
 }
 
-/* ================================================= */
 /* INFO ITEM */
-/* ================================================= */
 
 function InfoItem({
   icon: Icon,

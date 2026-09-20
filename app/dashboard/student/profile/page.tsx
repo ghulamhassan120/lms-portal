@@ -15,27 +15,13 @@ import {
 } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
 import { ContextType, SidebarContext, useSidebar } from "@/context/context";
+import { containerVariants, itemVariants } from "@/components/animation/motion";
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
-  },
-};
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 15 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.3, ease: "easeOut" as const },
-  },
-};
 
 export default function ProfilePage() {
-  const { collapsed, setMobileMenu, mobileMenu } = useSidebar();
-
+  const { collapsed, setMobileMenu, mobileMenu ,theme} = useSidebar();
+  const isLight=theme==="dark"
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#111111] text-white">
       <div className="flex min-h-screen">
@@ -98,7 +84,7 @@ export default function ProfilePage() {
 
             {/* PROFILE INFO OVERLAY */}
             <div className="flex flex-col sm:flex-row sm:items-end justify-between px-4 sm:px-6 -mt-16 sm:-mt-20 gap-4">
-              <div className="flex flex-col sm:flex-row sm:items-end gap-5">
+              <div className="flex flex-col sm:flex-row sm:items-end gap-5 relative top-5">
                 <div className="relative h-28 w-28 sm:h-32 sm:w-32 rounded-full border-4 border-[#111111] bg-[#222222] overflow-hidden shadow-xl">
                   <img
                     src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
@@ -142,14 +128,14 @@ export default function ProfilePage() {
 
               <div>
                 <p className="text-xs text-gray-400 mb-1">Email</p>
-                <p className="text-sm font-medium text-gray-200 break-all">
+                <p className={`text-sm font-medium  ${isLight?"text-gray-200":"text-gray-950"} break-all`}>
                   ghulamhassanofficial99@gmail.com
                 </p>
               </div>
 
               <div>
                 <p className="text-xs text-gray-400 mb-1">Phone</p>
-                <p className="text-sm font-medium text-gray-200">03463628836</p>
+                <p className={`text-sm font-medium  ${isLight?"text-gray-200":"text-gray-950"} `}>03463628836</p>
               </div>
 
               <div>
@@ -177,11 +163,11 @@ export default function ProfilePage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <p className="text-xs text-gray-400 mb-1">Gender</p>
-                    <p className="text-sm font-medium text-gray-200">Male</p>
+                    <p className={`text-sm font-medium  ${isLight?"text-gray-200":"text-gray-950"} `}>Male</p>
                   </div>
                   <div>
                     <p className="text-xs text-gray-400 mb-1">Date of Birth</p>
-                    <p className="text-sm font-medium text-gray-200">
+                    <p className={`text-sm font-medium  ${isLight?"text-gray-200":"text-gray-950"} `}>
                       April 2, 2007
                     </p>
                   </div>
@@ -195,7 +181,7 @@ export default function ProfilePage() {
                   </div>
                   <div>
                     <p className="text-xs text-gray-400 mb-1">CNIC</p>
-                    <p className="text-sm font-medium text-gray-200 font-mono">
+                    <p className={`text-sm font-medium  ${isLight?"text-gray-200":"text-gray-950"}  font-mono`}>
                       4220124784319
                     </p>
                   </div>
@@ -214,7 +200,7 @@ export default function ProfilePage() {
                       Enrolled Courses
                     </h2>
                   </div>
-                  <span className="h-6 w-6 rounded-full bg-[#2a2a2a] flex items-center justify-center text-xs font-semibold text-gray-300">
+                  <span className={`h-6 w-6 rounded-full b bg-[#2a2a2a] ${isLight?"!text-gray-300":"!text-gray-300"} flex items-center justify-center text-xs font-semibold `}>
                     1
                   </span>
                 </div>
@@ -222,13 +208,13 @@ export default function ProfilePage() {
                 <div className="relative rounded-xl border border-[#343434] bg-[#222222] p-4 flex items-center justify-between">
                   <div className="absolute left-0 top-0 h-full w-1.5 bg-[#0085ff] rounded-l-xl" />
                   <div>
-                    <h3 className="text-sm font-semibold text-white ml-2">
+                    <h3 className="text-sm font-semibold text-white ml-2 mb-2">
                       Modern Web Application Development
                     </h3>
-                  </div>
-                  <span className="px-2.5 py-1 rounded text-[11px] font-semibold bg-[#162938] text-[#38bdf8] border border-[#38bdf8]/30">
+                  <span className={`px-2.5 py-1 rounded text-[11px] font-semibold mx-2  ${isLight?"bg-[#162938]":"bg-[#EBF7FF]"} !text-[#38bdf8] border border-[#38bdf8]/30`}>
                     ENROLLED
                   </span>
+                  </div>
                 </div>
               </motion.div>
             </div>

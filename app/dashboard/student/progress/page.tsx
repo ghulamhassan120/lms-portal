@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   BookOpen,
   GraduationCap,
@@ -11,563 +11,14 @@ import {
 import Sidebar from "@/components/SideBar/Sidebar";
 import { useSidebar } from "@/context/context";
 import Header from "@/components/Header/Header";
+import { containerVariants, itemVariants } from "@/components/animation/motion";
+import { progressTopics } from "@/config/assest";
 
-// Animation Variants
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: "easeOut" as const },
-  },
-};
-
-const progressTopics = [
-  {
-    id: 1,
-    title: "Web Designing",
-    topics: "20/20",
-    percentage: "100%",
-    status: "completed",
-    icon: CheckCircle2,
-    iconColor: "text-[#00c98b]",
-    topicsList: [
-      {
-        title: "HTML Text",
-        completedDate: "Completed: Dec 15, 2025",
-        subItems: ["Furniture E-Commerce Website", "Amazon Clone", "NASA Landing Page", "Landing Page Assignment"]
-      },
-      {
-        title: "HTML Images",
-        completedDate: "Completed: May 6, 2026",
-        subItems: ["Furniture E-Commerce Website", "Amazon Clone", "NASA Landing Page", "Landing Page Assignment"]
-      },
-      {
-        title: "HTML Table",
-        completedDate: "Completed: May 6, 2026",
-        subItems: ["Budgetting App"]
-      },
-      {
-        title: "HTML Forms",
-        completedDate: "Completed: May 6, 2026",
-        subItems: ["Budgetting App","Landing Page Assignment"]
-      },
-      {
-    title: "HTML Audio/Video Tags",
-    completedDate: "Completed: May 6, 2026",
-    subItems: ["NASA Landing Page"]
-  },
-  {
-    title: "HTML Links",
-    completedDate: "Completed: May 6, 2026",
-    subItems: ["Amazon Clone"]
-  },
-  {
-    title: "Grid system",
-    completedDate: "Completed: Feb 12, 2026",
-    subItems: [
-      "Amazon Clone",
-      "Landing Page Assignment",
-      "Grid Assignment no 2",
-      "Grid Assignment no 1"
-    ]
-  },
-  {
-    title: "Font Awesome",
-    completedDate: "Completed: Feb 13, 2026",
-    subItems: [
-      "Budgetting App",
-      "Amazon Clone",
-      "Landing Page Assignment"
-    ]
-  },
-  {
-    title: "Bootstrap",
-    completedDate: "Completed: Feb 16, 2026",
-    subItems: ["Amazon Clone"]
-  },
-  {
-    title: "Css3",
-    completedDate: "Completed: Dec 15, 2025",
-    subItems: [
-      "Furniture E-Commerce Website",
-      "Amazon Clone",
-      "NASA Landing Page",
-      "Landing Page Assignment"
-    ]
-  },
-  {
-    title: "Google Fonts",
-    completedDate: "Completed: Feb 12, 2026",
-    subItems: [
-      "Amazon Clone",
-      "NASA Landing Page",
-      "Landing Page Assignment"
-    ]
-  },
-  {
-    title: "CSS Variables",
-    completedDate: "Completed: Feb 12, 2026",
-    subItems: []
-  },
-  {
-    title: "Netlify Hosting",
-    completedDate: "Completed: Feb 10, 2026",
-    subItems: []
-  },
-  {
-    title: "Github",
-    completedDate: "Completed: Feb 10, 2026",
-    subItems: [
-      "Furniture E-Commerce Website",
-      "Budgetting App",
-      "Amazon Clone",
-      "NASA Landing Page",
-      "Landing Page Assignment"
-    ]
-  },
-  {
-    title: "Github Hosting",
-    completedDate: "Completed: Feb 10, 2026",
-    subItems: [
-      "Budgetting App",
-      "Amazon Clone",
-      "NASA Landing Page",
-      "Landing Page Assignment"
-    ]
-  },
-  {
-    title: "CSS Animations",
-    completedDate: "Completed: Feb 13, 2026",
-    subItems: ["Amazon Clone"]
-  },
-  {
-    title: "Media queries",
-    completedDate: "Completed: Feb 16, 2026",
-    subItems: [
-      "Amazon Clone",
-      "NASA Landing Page",
-      "Landing Page Assignment"
-    ]
-  },
-  {
-    title: "Surge hosting",
-    completedDate: "Completed: Feb 10, 2026",
-    subItems: ["Amazon Clone"]
-  },
-  {
-    title: "Domain & Hosing Subscription (Deployment)",
-    completedDate: "Completed: Feb 18, 2026",
-    subItems: []
-  },
-  {
-    title: "Flex box",
-    completedDate: "Completed: Feb 5, 2026",
-    subItems: [
-      "Budgetting App",
-      "Amazon Clone",
-      "NASA Landing Page",
-      "Landing Page Assignment"
-    ]
-  }
-    ]
-  },
-  {
-    id: 2,
-    title: "Front-End Development",
-    topics: "27/31",
-    percentage: "87%",
-    status: "pending",
-    icon: Clock,
-    iconColor: "text-[#f59e0b]",
-    topicsList: [
-    {
-    title: "JavaScript Introduction",
-    completedDate: "Completed: Feb 21, 2026",
-    subItems: ["JavaScript Assignment – 25 Questions"]
-  },
-  {
-    title: "JavaScript Chapter 1 - 10",
-    completedDate: "Completed: Mar 3, 2026",
-    subItems: [
-      "JavaScript Assignment – 25 Questions",
-      "Budgetting App"
-    ]
-  },
-  {
-    title: "JavaScript Chapter 11 - 20",
-    completedDate: "Completed: Apr 6, 2026",
-    subItems: [
-      "JavaScript Assignment – 25 Questions",
-      "Budgetting App"
-    ]
-  },
-  {
-    title: "JavaScript Quiz 1",
-    completedDate: "Completed: Apr 19, 2026",
-    subItems: []
-  },
-  {
-    title: "JavaScript Chapter 21 - 30",
-    completedDate: "Completed: May 3, 2026",
-    subItems: [
-      "JavaScript Assignment – 25 Questions",
-      "Budgetting App"
-    ]
-  },
-  {
-    title: "JavaScript Chapter 31 - 40",
-    completedDate: "Completed: May 4, 2026",
-    subItems: [
-      "JavaScript Assignment – 25 Questions",
-      "Budgetting App"
-    ]
-  },
-  {
-    title: "JavaScript Quiz 2",
-    completedDate: "Completed: May 18, 2026",
-    subItems: []
-  },
-  {
-    title: "JavaScript Chapter 41 - 50",
-    completedDate: "Completed: May 11, 2026",
-    subItems: [
-      "JavaScript Assignment – 25 Questions",
-      "Budgetting App",
-      "Amazon Clone"
-    ]
-  },
-  {
-    title: "JavaScript Chapter 51 - 60",
-    completedDate: "Completed: May 20, 2026",
-    subItems: [
-      "JavaScript Assignment – 25 Questions",
-      "Budgetting App"
-    ]
-  },
-  {
-    title: "JavaScript Quiz 3",
-    completedDate: "Completed: Jun 3, 2026",
-    subItems: []
-  },
-  {
-    title: "JavaScript Book Completed",
-    completedDate: "Completed: Jun 11, 2026",
-    subItems: [
-      "Furniture E-Commerce Website",
-      "JavaScript Assignment – 25 Questions"
-    ]
-  },
-  {
-    title: "JavaScript Quiz 4",
-    completedDate: "Completed: Jun 27, 2026",
-    subItems: []
-  },
-  {
-    title: "Var vs Let vs Const",
-    completedDate: "Completed: Jun 12, 2026",
-    subItems: []
-  },
-  {
-    title: "Template Literals",
-    completedDate: "Completed: Jun 20, 2026",
-    subItems: []
-  },
-  {
-    title: "Arrow Functions",
-    completedDate: "Completed: Jun 15, 2026",
-    subItems: []
-  },
-  {
-    title: "Iterators & For..of",
-    completedDate: "Completed: Jul 19, 2026",
-    subItems: []
-  },
-  {
-    title: "Array Advance Methods",
-    completedDate: "Completed: Jul 19, 2026",
-    subItems: []
-  },
-  {
-    title: "JavaScript Behind the Scenes",
-    completedDate: "Completed: Aug 11, 2026",
-    subItems: []
-  },
-  {
-    title: "Destructuring, Rest & Spread Operators",
-    completedDate: "Completed: Jun 17, 2026",
-    subItems: []
-  },
-  {
-    title: "SET, MAP",
-    completedDate: "Completed: Jul 12, 2026",
-    subItems: []
-  },
-  {
-    title: "Default Parameters",
-    completedDate: "Completed: Jun 17, 2026",
-    subItems: []
-  },
-  {
-    title: "First-Class and Higher-Order Functions",
-    completedDate: "Completed: Sep 5, 2026",
-    subItems: []
-  },
-  {
-    title: "CallBack Functions",
-    completedDate: "Completed: Jul 4, 2026",
-    subItems: []
-  },
-  {
-    title: "Call, Apply, Bind",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Closures",
-    completedDate: "Completed: Jul 12, 2026",
-    subItems: []
-  },
-  {
-    title: "OOP with JavaScript",
-    completedDate: "Completed: Jul 6, 2026",
-    subItems: []
-  },
-  {
-    title: "Asynchronous JavaScript",
-    completedDate: "Completed: 3 days ago",
-    subItems: []
-  },
-  {
-    title: "TypeScript",
-    completedDate: "Completed: Jul 28, 2026",
-    subItems: []
-  },
-  {
-    title: "Advance Github",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "GSAP Animations",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Supabase or Firebase",
-    completedDate: "Not Completed",
-    subItems: []
-  }
-    ]
-  },
-  {
-    id: 3,
-    title: "Modern Front-End Development",
-    topics: "10/14",
-    percentage: "71%",
-    status: "pending",
-    icon: Clock,
-    iconColor: "text-[#f59e0b]",
-    topicsList: [
-      {
-    title: "ReactJS Introduction & How to Create React Project",
-    completedDate: "Completed: Aug 6, 2026",
-    subItems: [
-      "Admin panel (E commerce Dashboad)",
-      "E-Commerce Website (React js)"
-    ]
-  },
-  {
-    title: "Components , Props and JSX",
-    completedDate: "Completed: Aug 6, 2026",
-    subItems: [
-      "Admin panel (E commerce Dashboad)",
-      "E-Commerce Website (React js)"
-    ]
-  },
-  {
-    title: "State, Events, Forms",
-    completedDate: "Completed: Aug 23, 2026",
-    subItems: [
-      "Admin panel (E commerce Dashboad)"
-    ]
-  },
-  {
-    title: "React in Depth and Behind the Scenes (Components , Composition, Re-useability)",
-    completedDate: "Completed: Aug 17, 2026",
-    subItems: []
-  },
-  {
-    title: "Effects and Data Fetching in React",
-    completedDate: "Completed: Aug 11, 2026",
-    subItems: [
-      "E-Commerce Website (React js)"
-    ]
-  },
-  {
-    title: "Custom Hooks, Ref, useReducer etc",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Class-based React (Optional - not necessary)",
-    completedDate: "Completed: Sep 5, 2026",
-    subItems: []
-  },
-  {
-    title: "Single Page Application (SPA) - React Router DOM",
-    completedDate: "Completed: Aug 11, 2026",
-    subItems: [
-      "Admin panel (E commerce Dashboad)"
-    ]
-  },
-  {
-    title: "State Management - Context Api",
-    completedDate: "Completed: Sep 5, 2026",
-    subItems: [
-      "Admin panel (E commerce Dashboad)"
-    ]
-  },
-  {
-    title: "Performance Optimization",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Redux & Redux ToolKit with Thunk",
-    completedDate: "Completed: Sep 8, 2026",
-    subItems: []
-  },
-  {
-    title: "Tailwind, Material UI, Styled Components OverView",
-    completedDate: "Not Completed",
-    subItems: [
-      "Admin panel (E commerce Dashboad)"
-    ]
-  },
-  {
-    title: "FrontEnd Deployment through Vercel",
-    completedDate: "Completed: Aug 23, 2026",
-    subItems: [
-      "E-Commerce Website (React js)"
-    ]
-  },
-  {
-    title: "NextJS",
-    completedDate: "Not Completed",
-    subItems: [
-      "Admin panel (E commerce Dashboad)"
-    ]
-  }
-    ]
-  },
-  {
-    id: 4,
-    title: "Back-End Development",
-    topics: "0/16",
-    percentage: "0%",
-    status: "pending",
-    icon: Clock,
-    iconColor: "text-[#f59e0b]",
-    topicsList: [
-      {
-    title: "NodeJS",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "ExpressJS",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "MongoDB",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Security and Authentication",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Multer - Media Uploading",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Sockets",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "GraphQL",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "PostGresSQL",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Sequelize",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Payment Integration",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Scalable System - Caching",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Scalable System - Messaging Queues",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "CI / CD",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Node Production and Cloud Deployment",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "NodeJS Optimization",
-    completedDate: "Not Completed",
-    subItems: []
-  },
-  {
-    title: "Dockers - Containterization",
-    completedDate: "Not Completed",
-    subItems: []
-  }
-    ]
-  },
-];
 
 export default function ProgressPage() {
   const [openModuleId, setOpenModuleId] = useState<number | null>(null);
-  const { collapsed } = useSidebar();
+  const { collapsed,theme } = useSidebar();
+  const isLight=theme==="dark"
 
   const toggleModule = (id: number) => {
     setOpenModuleId(openModuleId === id ? null : id);
@@ -602,40 +53,40 @@ export default function ProgressPage() {
             className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
           >
             {/* Total Topics */}
-            <div className="flex items-center justify-between rounded-xl border border-[#343434] bg-[#232323] p-5">
+            <div className={`flex items-center justify-between rounded-xl border border-[#343434] ${isLight?"bg-[#232323]":"bg-[#fff]"}  p-5`}>
               <div>
-                <div className="text-[27px] font-semibold text-[#e5e7eb]">
+                <span className="text-[27px] font-semibold text-[#e5e7eb]">
                   81
-                </div>
+                </span>
                 <p className="mt-1 text-sm text-gray-400">Total Topics</p>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#18302d]">
+              <div className={`flex h-10 w-10 items-center justify-center rounded-full  ${isLight?"bg-[#18302d]":"bg-[#D1FAE5]"}`}>
                 <BookOpen size={20} className="text-[#00c98b]" />
               </div>
             </div>
 
             {/* Completed Topics */}
-            <div className="flex items-center justify-between rounded-xl border border-[#343434] bg-[#232323] p-5">
+            <div className={`flex items-center justify-between rounded-xl border border-[#343434] ${isLight?"bg-[#232323]":"bg-[#fff]"} p-5`}>
               <div>
-                <div className="text-[27px] font-semibold text-[#e5e7eb]">
+                <span className="text-[27px] font-semibold text-[#e5e7eb]">
                   57
-                </div>
+                </span>
                 <p className="mt-1 text-sm text-gray-400">Completed Topics</p>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2b2638]">
+              <div className={`flex h-10 w-10 items-center justify-center rounded-full b ${isLight?"bg-[#2b2638]":"bg-[#EFE5FF]"}`}>
                 <GraduationCap size={22} className="text-[#934cff]" />
               </div>
             </div>
 
             {/* Pending Topics */}
-            <div className="flex items-center justify-between rounded-xl border border-[#343434] bg-[#232323] p-5">
+            <div className={`flex items-center justify-between rounded-xl border border-[#343434] ${isLight?"bg-[#232323] ":"bg-[#fff]"} p-5`}>
               <div>
-                <div className="text-[27px] font-semibold text-[#e5e7eb]">
+                <span className="text-[27px] font-semibold text-[#e5e7eb]">
                   24
-                </div>
+                </span>
                 <p className="mt-1 text-sm text-gray-400">Pending Topics</p>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#381e1e]">
+              <div className={`flex h-10 w-10 items-center justify-center rounded-full  ${isLight?"bg-[#381e1e]":"bg-[#F6D0CF]"}`}>
                 <Clock size={20} className="text-[#ef4444]" />
               </div>
             </div>
@@ -649,17 +100,17 @@ export default function ProgressPage() {
               return (
                 <div
                   key={item.id}
-                  className="rounded-xl border border-[#343434] bg-[#232323] overflow-hidden transition-all"
+                  className={`rounded-xl border border-[#343434] ${isLight?"bg-[#232323]":"bg-[#fff]"} overflow-hidden transition-all`}
                 >
                   {/* Module Header Bar */}
                   <div
                     onClick={() => toggleModule(item.id)}
-                    className="flex items-center justify-between px-5 py-4 cursor-pointer hover:bg-[#2a2a2a] transition-all"
+                    className={`flex items-center justify-between px-5 py-4 cursor-pointer  ${isLight?"hover:bg-[#2a2a2a]":"hover:bg-[#ffffff]"} transition-all`}
                   >
                     {/* Left Side: Icon & Title */}
                     <div className="flex items-center gap-4">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#2a2a2a]">
-                        <StatusIcon size={18} className={item.iconColor} />
+                      <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#2a2a2a] ${isLight?"bg-[#2a2a2a]":"bg-[#ececec]"}`}>
+                        <StatusIcon size={18} className={`${item.iconColor}` } />
                       </div>
                       <div>
                         <h3 className="text-base font-semibold text-white">
@@ -673,7 +124,7 @@ export default function ProgressPage() {
 
                     {/* Right Side: Percentage & Dropdown Arrow */}
                     <div className="flex items-center gap-4">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#009ce9] text-xs font-bold text-[#009ce9]">
+                      <div className={`flex h-10 w-10 items-center justify-center rounded-full  text-xs font-bold ${isLight?"text-[#009ce9] border-2 border-[#009ce9]":"text-[#009ce9] border-2 border-[#009ce9]!"}`}>
                         {item.percentage}
                       </div>
                       <motion.div
@@ -702,7 +153,7 @@ export default function ProgressPage() {
                         {item.topicsList.map((topic, idx) => (
                           <div
                             key={idx}
-                            className="rounded-xl border border-[#343434] bg-[#232323] p-4"
+                            className={`rounded-xl border border-[#343434] ${isLight?"bg-[#232323] ":"bg-[#fff] "} p-4`}
                           >
                             <div className="flex items-center gap-2 mb-1">
                               <CheckCircle2 size={16} className="text-[#00c98b]" />
@@ -716,7 +167,7 @@ export default function ProgressPage() {
 
                             {/* Sub items nested box */}
                             {topic.subItems && topic.subItems.length > 0 && (
-                              <div className="ml-6 rounded-lg bg-[#162235] border border-[#343434] p-3 space-y-2">
+                              <div className={`ml-6 rounded-lg  ${isLight?"bg-[#162235]":"bg-[#EFF6FF]"} border border-[#343434] p-3 space-y-2`}>
                                 {topic.subItems.map((sub, sIdx) => (
                                   <div
                                     key={sIdx}

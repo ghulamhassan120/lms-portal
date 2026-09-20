@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, ShieldCheck, GraduationCap, UserCheck ,BookUser} from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useSidebar } from "@/context/context";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,7 +15,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
+  const {theme}=useSidebar()
+  const isLight=theme==="dark"
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);

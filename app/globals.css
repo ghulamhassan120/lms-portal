@@ -53,24 +53,24 @@ html:not(.dark) body {
 }
 
 /* Sabhi tarah ke dark backgrounds ko light white karna */
-html:not(.dark) div, 
+/* html:not(.dark) div,  */
 html:not(.dark) button, 
 html:not(.dark) aside, 
 html:not(.dark) header, 
 html:not(.dark) section {
   background-color: inherit;
   color: #000102
+
 }
 html:not(.dark) button:hover{
-  background-color: #acdbeb;
+  /* background-color: #acdbeb; */
 } 
 
 /* Specific class overrides jo dark background enforce kar rahi hain */
 html:not(.dark) .bg-\[\#1a1a1a\],
 html:not(.dark) .bg-\[\#222222\],
 html:not(.dark) .bg-\[\#111111\],
-html:not(.dark) .bg-\[\#1a202c\],
-html:not(.dark) div[class*="bg-[#"] {
+html:not(.dark) .bg-\[\#1a202c\]{
   background-color: #ffffff !important;
   color: #1f2937 !important;
   /* border-color: #e5e7eb !important; */
@@ -78,7 +78,6 @@ html:not(.dark) div[class*="bg-[#"] {
 
 /* Main course card ke andar wale dark tags ya badges */
 html:not(.dark) span, 
-html:not(.dark) p, 
 html:not(.dark) h1, 
 html:not(.dark) h2, 
 html:not(.dark) h3 {

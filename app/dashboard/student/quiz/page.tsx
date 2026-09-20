@@ -5,73 +5,13 @@ import { AlertTriangle } from "lucide-react";
 import Sidebar from "@/components/SideBar/Sidebar";
 import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 import Header from "@/components/Header/Header";
+import { containerVariants, itemVariants } from "@/components/animation/motion";
+import { quizRecords } from "@/config/assest";
 
-// Animation Variants
-const containerVariants :Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants :Variants= {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.4, ease: "easeOut" as const }
-  },
-};
-
-const quizRecords = [
-  {
-    title: "Javascript (Quiz-4)",
-    module: "Modern Front-End Development",
-    questions: "40",
-    attempts: "1 / 3",
-    percentage: "70%",
-    status: "PASSED",
-    note: "—",
-    action: "Completed"
-  },
-  {
-    title: "Javascript (Quiz-3)",
-    module: "Modern Front-End Development",
-    questions: "40",
-    attempts: "3 / 3",
-    percentage: "73%",
-    status: "PASSED",
-    note: "—",
-    action: "Completed"
-  },
-  {
-    title: "Javascript (Quiz-2)",
-    module: "Modern Front-End Development",
-    questions: "40",
-    attempts: "1 / 3",
-    percentage: "90%",
-    status: "PASSED",
-    note: "—",
-    action: "Completed"
-  },
-  {
-    title: "Javascript (Quiz-1)",
-    module: "Modern Front-End Development",
-    questions: "40",
-    attempts: "1 / 3",
-    percentage: "88%",
-    status: "PASSED",
-    note: "—",
-    action: "Completed"
-  },
-];
 
 export default function QuizPage() {
-  const { collapsed } = useSidebar()
+  const { collapsed ,theme} = useSidebar()
+  const isLight=theme==="dark"
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#111111] text-white">
@@ -100,7 +40,7 @@ export default function QuizPage() {
           {/* ================= IMPORTANT INFORMATION BANNER ================= */}
           <motion.div 
             variants={itemVariants}
-            className="rounded-2xl border border-[#343434] bg-[#162235] p-5 sm:p-6 mb-6 shadow-xl"
+            className={`rounded-2xl border border-[#343434]  ${isLight?"bg-[#162235]":"bg-[#fff]"} p-5 sm:p-6 mb-6 shadow-xl`}
           >
             <div className="flex items-center gap-2.5 text-[#38bdf8] font-semibold text-base mb-3">
               <AlertTriangle size={20} />
@@ -118,7 +58,7 @@ export default function QuizPage() {
           {/* ================= QUIZ TABLE SECTION ================= */}
           <motion.div 
             variants={itemVariants}
-            className="rounded-xl border border-[#343434] bg-[#232323] p-4 sm:p-5 shadow-lg mb-6"
+            className={`rounded-xl border border-[#343434] ${isLight?"bg-[#162235]":"bg-[#fff]"}p-4 sm:p-5 shadow-lg mb-6`}
           >
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm text-gray-300 min-w-[900px]">
@@ -134,32 +74,34 @@ export default function QuizPage() {
                     <th className="py-3 px-4 text-right">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#343434]">
+                <tbody className="divide-y divide-[#343434] ">
                   {quizRecords.map((record, index) => (
                     <motion.tr 
                       whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.02)" }}
                       key={index} 
-                      className="transition"
+                      className={`transition ${!isLight&&'border-b-2 border-[#fc1313] ' }`}
                     >
                       <td className="py-4 px-4 font-medium text-white">{record.title}</td>
                       <td className="py-4 px-4 text-gray-300">{record.module}</td>
                       <td className="py-4 px-4">
-                        <span className="inline-block rounded-md bg-[#2b2b2b] px-2.5 py-1 text-xs font-semibold text-gray-200">
+                        <span className={`inline-block rounded-md ${isLight?"bg-[#2b2b2b] ":"bg-[#F1F1F1] "} px-2.5 py-1 text-xs font-semibold text-gray-200`}>
                           {record.questions}
                         </span>
                       </td>
                       <td className="py-4 px-4">
                         <span className={`inline-block rounded-md px-2.5 py-1 text-xs font-semibold ${
                           record.attempts === "3 / 3" 
-                            ? "bg-[#381e1e] text-[#ef4444] border border-[#ef4444]/30" 
-                            : "bg-[#2b2b2b] text-gray-200"
+                          ?isLight
+                            ? "bg-[#381e1e] !text-[#ef4444] border border-[#ef4444]/30" 
+                            : "bg-[#F9E2E2] !text-[#ef4444] "
+                            :""
                         }`}>
                           {record.attempts}
                         </span>
                       </td>
                       <td className="py-4 px-4 font-medium text-white">{record.percentage}</td>
                       <td className="py-4 px-4">
-                        <span className="inline-block px-3 py-1 rounded-md text-xs font-semibold bg-[#18302d] text-[#00c98b] border border-[#00c98b]/30">
+                        <span className={`inline-block px-3 py-1 rounded-md text-xs font-semibold ${isLight?"bg-[#18302d] ":"bg-[#D1FAE5] "} text-[#00c98b] border border-[#00c98b]/30`}>
                           {record.status}
                         </span>
                       </td>
@@ -167,7 +109,7 @@ export default function QuizPage() {
                       <td className="py-4 px-4 text-right">
                         <button 
                           disabled 
-                          className="rounded-lg border border-[#3c3c3c] bg-[#2a2a2a] px-4 py-1.5 text-xs font-medium text-gray-400 cursor-not-allowed"
+                          className={`rounded-lg border border-[#3c3c3c] ${isLight?"bg-[#2a2a2a]":"!bg-[#8DB3F4] "} px-4 py-1.5 text-xs font-medium text-gray-400 cursor-not-allowed`}
                         >
                           {record.action}
                         </button>

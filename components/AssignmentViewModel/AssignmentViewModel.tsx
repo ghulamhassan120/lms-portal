@@ -5,8 +5,8 @@ import { Calendar, FileText, LinkIcon, X } from 'lucide-react';
 import React from 'react';
 
 const AssignmentViewModel = () => {
-  const { isModalOpen, setIsModalOpen, selectedAssignment } = useSidebar();
-
+  const { isModalOpen, setIsModalOpen, selectedAssignment ,theme} = useSidebar();
+  const isLight=theme==="dark"
   // Agar koi assignment select nahi hui toh modal render na ho
   if (!selectedAssignment) return null;
 
@@ -60,7 +60,7 @@ const AssignmentViewModel = () => {
                       <span className="text-xs text-gray-400 block mb-1">
                         Status
                       </span>
-                      <span className="inline-block px-3 py-1 rounded-md text-xs font-semibold bg-[#18302d] text-[#00c98b] border border-[#00c98b]/30">
+                      <span className={`inline-block px-3 py-1 rounded-md text-xs font-semibold ${isLight?"bg-[#18302d] ":"bg-[#D1FAE5] "} !text-[#00c98b] border border-[#00c98b]/30`}>
                         {selectedAssignment.status}
                       </span>
                     </div>
@@ -71,7 +71,7 @@ const AssignmentViewModel = () => {
                     <span className="text-xs text-gray-400 block mb-1">
                       Reference Links
                     </span>
-                    <div className="rounded-lg bg-[#181818] border border-[#333] p-3 text-xs text-[#38bdf8] break-all">
+                    <div className={`rounded-lg ${isLight?"bg-[#181818] text-[#38bdf8]":"bg-[#F9FAFB] text-[#000]"} border border-[#333] p-3 text-xs  break-all`}>
                       https://www.figma.com/design/j55YNUXNnwQuZB7VatyVy/E-commerce-Website...
                     </div>
                   </div>
@@ -81,7 +81,7 @@ const AssignmentViewModel = () => {
                     <span className="text-xs text-gray-400 block mb-1">
                       Description
                     </span>
-                    <div className="rounded-lg bg-[#181818] border border-[#333] p-3 text-xs text-gray-300 space-y-1.5 leading-relaxed">
+                    <div className={`rounded-lg  ${isLight?"bg-[#181818]":"bg-[#F9FAFB]"} border border-[#333] p-3 text-xs text-gray-300 space-y-1.5 leading-relaxed`}>
                       <p>React.js frontend</p>
                       <p>Create all required e-commerce pages and functionality based on the Figma design</p>
                       <p>Fully responsive design for mobile, tablet, and desktop</p>
@@ -113,8 +113,8 @@ const AssignmentViewModel = () => {
                     <span className="text-xs text-gray-400 block mb-1">
                       Submission Link
                     </span>
-                    <div className="rounded-lg bg-[#181818] border border-[#333] p-3 text-xs text-[#38bdf8] flex items-center justify-between">
-                      <span className="truncate">
+                    <div className={`rounded-lg ${isLight?"bg-[#181818] ":"bg-[#F9FAFB] "} border border-[#333] p-3 text-xs text-[#38bdf8] flex items-center justify-between`}>
+                      <span className={`truncate ${isLight?"text-[#38bdf8]":"!text-[#1391c7]"}`}>
                         https://e-cormarce-lu73.vercel.app/
                       </span>
                       <LinkIcon size={14} className="shrink-0 ml-2" />

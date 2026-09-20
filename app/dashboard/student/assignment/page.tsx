@@ -8,27 +8,8 @@ import Header from "@/components/Header/Header";
 import AssignmentViewModel from "@/components/AssignmentViewModel/AssignmentViewModel";
 import { assignmentRecords } from "@/config/assest";
 import AssignmentEditModal from "@/components/AssignmentEditModal/AssignmentEditModal";
+import { containerVariants, itemVariants } from "@/components/animation/motion";
 
-// Animation Variants
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: "easeOut" as const },
-  },
-};
 
 export default function AssignmentPage() {
   const {
@@ -36,7 +17,10 @@ export default function AssignmentPage() {
     setIsModalOpen,
     setSelectedAssignment,
     setIsEditModalOpen,
+    theme
   } = useSidebar();
+
+  const isLight=theme==="dark"
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#111111] text-white">
@@ -67,40 +51,40 @@ export default function AssignmentPage() {
             className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6"
           >
             {/* Assigned */}
-            <div className="flex items-center justify-between rounded-xl border border-[#343434] bg-[#232323] p-5">
+            <div className={`flex items-center justify-between rounded-xl border border-[#343434] ${isLight?"bg-[#232323] ":"bg-[#fff]"} p-5`}>
               <div>
-                <div className="text-[27px] font-semibold text-[#e5e7eb]">
+                <div className={`text-[27px] font-semibold ${isLight?"text-[#e5e7eb] ":"text-[#000] "}`}>
                   16
                 </div>
                 <p className="mt-1 text-sm text-gray-400">Assigned</p>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1b253b]">
-                <FileText size={20} className="text-[#38bdf8]" />
+              <div className={`flex h-10 w-10 items-center justify-center rounded-full  ${isLight?"bg-[#1b253b]":"bg-[#DBEAFE]"}`}>
+                <FileText size={20} className={`text-[#3765EB]`} />
               </div>
             </div>
 
             {/* Submitted */}
-            <div className="flex items-center justify-between rounded-xl border border-[#343434] bg-[#232323] p-5">
+            <div className={`flex items-center justify-between rounded-xl border border-[#343434] ${isLight?"bg-[#232323] ":"bg-[#fff]"}  p-5`}>
               <div>
-                <div className="text-[27px] font-semibold text-[#e5e7eb]">
+                <div className={`text-[27px] font-semibold ${isLight?"text-[#e5e7eb] ":"text-[#000] "}`}>
                   6
                 </div>
                 <p className="mt-1 text-sm text-gray-400">Submitted</p>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#18302d]">
+              <div className={`flex h-10 w-10 items-center justify-center rounded-full bg-[#18302d] ${isLight?"bg-[#1b253b]":"bg-[#DCFCE7]"}`}>
                 <CheckSquare size={20} className="text-[#00c98b]" />
               </div>
             </div>
 
             {/* Pending */}
-            <div className="flex items-center justify-between rounded-xl border border-[#343434] bg-[#232323] p-5">
+            <div className={`flex items-center justify-between rounded-xl border border-[#343434] ${isLight?"bg-[#232323] ":"bg-[#fff]"}  p-5`}>
               <div>
-                <div className="text-[27px] font-semibold text-[#e5e7eb]">
+                <div className={`text-[27px] font-semibold ${isLight?"text-[#e5e7eb] ":"text-[#000] "}`}>
                   10
                 </div>
                 <p className="mt-1 text-sm text-gray-400">Pending</p>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#383018]">
+              <div className={`flex h-10 w-10 items-center justify-center rounded-full bg-[#383018] ${isLight?"bg-[#1b253b]":"bg-[#FDF9C3]"}`}>
                 <Clock size={20} className="text-[#f59e0b]" />
               </div>
             </div>
@@ -109,8 +93,7 @@ export default function AssignmentPage() {
           {/* ================= ASSIGNMENT TABLE SECTION ================= */}
           <motion.div
             variants={itemVariants}
-            className="rounded-xl border border-[#343434] bg-[#232323] p-4 sm:p-5 shadow-lg"
-          >
+            className={`rounded-xl border border-[#343434]  ${isLight?"bg-[#232323]":"bg-[#fff]"} p-4 sm:p-5 shadow-lg`}          >
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm text-gray-300 min-w-[800px]">
                 <thead className="border-b border-[#343434] text-xs text-gray-400 uppercase">
@@ -129,14 +112,14 @@ export default function AssignmentPage() {
                         backgroundColor: "rgba(255, 255, 255, 0.02)",
                       }}
                       key={index}
-                      className={`transition ${record.isHackathon ? "bg-[#1c1525]" : ""}`}
+                      className={`transition !border-b !border-[#dfdada] ${record.isHackathon ? isLight?"bg-[#1c1525] ":"bg-[#FAF5FF] !border-b !border-[#da0303]" : ""}`}
                     >
                       {/* Assignment Title & Hackathon Badge */}
                       <td className="py-4 px-4 font-medium text-white">
                         <div className="flex items-center gap-3">
                           <span>{record.title}</span>
                           {record.isHackathon && (
-                            <span className="rounded-md border border-[#934cff]/40 bg-[#2b223d] px-2 py-0.5 text-[10px] font-semibold tracking-wider text-[#b072ff]">
+                            <span className={`rounded-md border border-[#934cff]/40  ${isLight?"bg-[#2b223d]":"bg-[#F3E8FF]"} px-2 py-0.5 text-[10px] font-semibold tracking-wider !text-[#9b76e4]`}>
                               HACKATHON
                             </span>
                           )}
@@ -149,7 +132,7 @@ export default function AssignmentPage() {
                           className={`inline-block px-2.5 py-1 rounded-md text-xs font-medium ${
                             record.topics === "No topics"
                               ? "text-gray-400"
-                              : "bg-[#162938] text-[#38bdf8] border border-[#38bdf8]/30"
+                              : isLight?" text-[#38bdf8] border border-[#38bdf8]/30":"bg-[#DBEAFE] !text-[#819AD7]"
                           }`}
                         >
                           {record.topics}
@@ -166,10 +149,12 @@ export default function AssignmentPage() {
                         <span
                           className={`inline-block px-3 py-1 rounded-md text-xs font-semibold ${
                             record.statusType === "approved"
-                              ? "bg-[#18302d] text-[#00c98b] border border-[#00c98b]/30"
+                              ? isLight?"bg-[#18302d] !text-[#00c98b] border border-[#00c98b]/30":
+                              "bg-[#D1FAE5] "
                               : record.statusType === "submitted"
-                                ? "bg-[#162938] text-[#38bdf8] border border-[#38bdf8]/30"
-                                : "bg-[#252525] text-gray-400 border border-[#3d3d3d]"
+                                ? isLight?"bg-[#162938] !text-[#38bdf8] border border-[#38bdf8]/30"
+                                : "bg-[#F0F5FF]"
+                                : isLight?"bg-[#252525] !text-gray-400 border border-[#3d3d3d]":"bg-[#F3F4F6]"
                           }`}
                         >
                           {record.status}
@@ -179,7 +164,7 @@ export default function AssignmentPage() {
                       {/* Action */}
                       <td className="py-4 px-4 text-right">
                         {record.actionState === "closed" ? (
-                          <div className="flex items-center justify-end gap-3 text-xs italic text-[#ef4444]">
+                          <div className={`flex items-center justify-end gap-3 text-xs italic ${isLight?"text-[#ef4444]":"!text-[#ef4444]"} `}>
                             <button
                               title="View"
                               className="text-gray-400 hover:text-white transition not-italic"
