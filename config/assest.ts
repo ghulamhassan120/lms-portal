@@ -672,3 +672,32 @@ export const quizRecords = [
     action: "Completed"
   },
 ];
+
+
+// Mock Data for Students Tab[cite: 6]
+  export const students = [
+    { name: "Ghulam Hassan", roll: "525239", email: "ghulam@example.com", status: "ENROLLED" },
+    { name: "Ali Khan", roll: "525240", email: "ali@example.com", status: "ENROLLED" },
+    { name: "Ayesha Ahmed", roll: "525241", email: "ayesha@example.com", status: "ENROLLED" },
+    { name: "Bilal Raza", roll: "525242", email: "bilal@example.com", status: "ENROLLED" },
+  ];
+
+  export const modules = [
+    { name: "Web Designing", topics: "20/20", percentage: 100, completed: true },
+    { name: "Front-End Development", topics: "26/31", percentage: 84, completed: false },
+    { name: "Modern Front-End Development", topics: "10/14", percentage: 71, completed: false },
+    { name: "Back-End Development", topics: "0/16", percentage: 0, completed: false },
+  ];
+  // Mock Data for Assignments Tab[cite: 4]
+  export const assignments = [
+    { title: "Admin panel (E-commerce Dashboard)", desc: "Create the provided UI design in React or Next.js...", topics: "7 Topics", dueDate: "Sep 10, 2026", isHackathon: false },
+    { title: "QUICKSERVE WMA (Batch-20)", desc: "Challenge: Build a modern service-booking web application...", topics: "No topics", dueDate: "Aug 30, 2026", isHackathon: true },
+    { title: "E-Commerce Website (React js)", desc: "React js frontend. Create all required e-commerce...", topics: "4 Topics", dueDate: "Aug 17, 2026", isHackathon: false },
+  ];
+
+  // Mock Data for Quizzes Tab[cite: 5]
+  export const quizzes = [
+    { title: "Javascript (Quiz-4)", course: "Modern Web Application Development", date: "Jun 24, 2026", expiry: "Jun 24, 2026", status: "ACTIVE" },
+    { title: "Javascript (Quiz-3)", course: "Modern Web Application Development", date: "Jun 3, 2026", expiry: "Jun 3, 2026", status: "ACTIVE" },
+    { title: "CSS Quiz", course: "Modern Web Application Development, Web and Mobile App Development", date: "Mar 27, 2026", expiry: "Mar 27, 2026", status: "ACTIVE" },
+  ];

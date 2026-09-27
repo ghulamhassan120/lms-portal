@@ -21,58 +21,16 @@ import {
 import Sidebar from "@/components/SideBar/Sidebar";
 import { ContextType, SidebarContext, useSidebar } from "@/context/context";
 import TeacherSidebar from "@/components/SideBar/TeacherSidebar";
+import { assignments, modules, quizzes, students } from "@/config/assest";
+import { containerVariants, itemVariants } from "@/components/animation/motion";
+import Breadcrumb_teacher from "@/components/BREADCRUMBS/Breadcrumb_teacher";
 
-// Animation Variants
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 15 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.3, ease: "easeOut" as const }
-  },
-};
 
 export default function TeacherCoursePage() {
-  const { collapsed, setMobileMenu, mobileMenu } = useSidebar()
-  const [activeTab, setActiveTab] = useState("Students");
+  const { collapsed, setMobileMenu, mobileMenu,activeTab,setActiveTab } = useSidebar()
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Mock Data for Students Tab[cite: 6]
-  const students = [
-    { name: "Ghulam Hassan", roll: "525239", email: "ghulam@example.com", status: "ENROLLED" },
-    { name: "Ali Khan", roll: "525240", email: "ali@example.com", status: "ENROLLED" },
-    { name: "Ayesha Ahmed", roll: "525241", email: "ayesha@example.com", status: "ENROLLED" },
-    { name: "Bilal Raza", roll: "525242", email: "bilal@example.com", status: "ENROLLED" },
-  ];
-
-  const modules = [
-    { name: "Web Designing", topics: "20/20", percentage: 100, completed: true },
-    { name: "Front-End Development", topics: "26/31", percentage: 84, completed: false },
-    { name: "Modern Front-End Development", topics: "10/14", percentage: 71, completed: false },
-    { name: "Back-End Development", topics: "0/16", percentage: 0, completed: false },
-  ];
-  // Mock Data for Assignments Tab[cite: 4]
-  const assignments = [
-    { title: "Admin panel (E-commerce Dashboard)", desc: "Create the provided UI design in React or Next.js...", topics: "7 Topics", dueDate: "Sep 10, 2026", isHackathon: false },
-    { title: "QUICKSERVE WMA (Batch-20)", desc: "Challenge: Build a modern service-booking web application...", topics: "No topics", dueDate: "Aug 30, 2026", isHackathon: true },
-    { title: "E-Commerce Website (React js)", desc: "React js frontend. Create all required e-commerce...", topics: "4 Topics", dueDate: "Aug 17, 2026", isHackathon: false },
-  ];
-
-  // Mock Data for Quizzes Tab[cite: 5]
-  const quizzes = [
-    { title: "Javascript (Quiz-4)", course: "Modern Web Application Development", date: "Jun 24, 2026", expiry: "Jun 24, 2026", status: "ACTIVE" },
-    { title: "Javascript (Quiz-3)", course: "Modern Web Application Development", date: "Jun 3, 2026", expiry: "Jun 3, 2026", status: "ACTIVE" },
-    { title: "CSS Quiz", course: "Modern Web Application Development, Web and Mobile App Development", date: "Mar 27, 2026", expiry: "Mar 27, 2026", status: "ACTIVE" },
-  ];
-
+  
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#111111] text-white">
       <div className="flex min-h-screen">
@@ -103,37 +61,7 @@ export default function TeacherCoursePage() {
           `}
         >
           {/* HEADER & BREADCRUMBS */}
-          <motion.header variants={itemVariants} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#222222] pb-4 mb-5">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setMobileMenu(true)}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[#363636] bg-[#222222] text-gray-300 hover:text-white lg:hidden"
-              >
-                <Menu size={20} />
-              </button>
-              <div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-1">
-                  <span>Dashboard</span>
-                  <ChevronRight size={14} />
-                  <span className="text-[#9ca3af]">Modern Web Application Development</span>
-                </div>
-                <h1 className="text-xl sm:text-2xl font-bold text-white">Modern Web Application Development</h1>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button className="flex items-center gap-2 rounded-md border border-[#393939] bg-[#252525] px-3 py-2 text-sm font-medium text-white transition hover:bg-[#303030]">
-                <MessageSquare size={16} />
-                <span>Feedback</span>
-              </button>
-              {activeTab === "Assignments" && (
-                <button className="flex items-center gap-2 rounded-md bg-[#0085ff] hover:bg-[#006edb] px-3.5 py-2 text-sm font-semibold text-white transition shadow">
-                  <Plus size={16} />
-                  <span>New Assignment</span>
-                </button>
-              )}
-            </div>
-          </motion.header>
+            <Breadcrumb_teacher/>
 
           {/* NAVIGATION TABS (Students, Attendance, Assignments, Quizzes, Course Progress) */}
           <motion.div variants={itemVariants} className="flex overflow-x-auto border-b border-[#343434] mb-6 gap-6 scrollbar-none">

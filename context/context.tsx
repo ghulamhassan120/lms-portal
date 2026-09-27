@@ -15,6 +15,8 @@ export type ContextType = {
   setIsEditModalOpen: (assignment: any) => void; 
   theme: string;
 setTheme: (theme: string) => void;
+  activeTab: string;
+setActiveTab: (theme: string) => void;
 };
 export const SidebarContext = createContext<ContextType | undefined>(
   undefined
@@ -26,6 +28,7 @@ export const SidebarProvider = ({ children }:any) => {
      const [isModalOpen, setIsModalOpen] = useState<Boolean>(false);
      const [selectedAssignment, setSelectedAssignment] = useState<any>();
      const [isEditModalOpen, setIsEditModalOpen] = useState<any>();
+     const [activeTab, setActiveTab] = useState<string>("Students");
      const [theme, setTheme] = useState("dark");
 useEffect(() => {
   const root = document.documentElement;
@@ -52,7 +55,10 @@ useEffect(() => {
         setSelectedAssignment,
         setIsEditModalOpen,
         isEditModalOpen,
-        theme,setTheme
+        theme,setTheme,
+        activeTab,
+        setActiveTab
+
 
       }}
     >
