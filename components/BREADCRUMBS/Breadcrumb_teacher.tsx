@@ -21,7 +21,7 @@ const Breadcrumb_teacher = () => {
         isHackathon: false
     })
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:any) => {
         e.preventDefault()
         console.log("New Assignment Data:", formData)
         // Yahan aap apni API call ya state update kar sakte hain
@@ -97,7 +97,6 @@ const Breadcrumb_teacher = () => {
                             <div>
                                 <label className="block text-xs font-medium text-gray-400 mb-1">Description</label>
                                 <textarea 
-                                    rows="3"
                                     required
                                     value={formData.desc}
                                     onChange={(e) => setFormData({...formData, desc: e.target.value})}
